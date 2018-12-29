@@ -1,0 +1,82 @@
+/*
+In NativeScript, the app.css file is where you place CSS rules that
+you would like to apply to your entire application. Check out
+http://docs.nativescript.org/ui/styling for a full list of the CSS
+selectors and properties you can use to style UI components.
+
+/*
+In many cases you may want to use the NativeScript core theme instead
+of writing your own CSS rules. For a full list of class names in the theme
+refer to http://docs.nativescript.org/ui/theme.
+*/
+@import "~nativescript-theme-core/css/core.light.css";
+
+.icon {
+  font-family: "icomoon";
+}
+
+.action-bar {
+  background-color: #dd1014;
+  color: #fff;
+}
+
+.page {
+  background-color: #fafafa;
+  padding: 12 16;
+}
+
+.button {
+  background-color: #dd1014;
+  color: #fff;
+  padding: 16 8;
+  border-width: 1;
+  border-color: #dd1014;
+}
+.button-outline {
+  background-color: transparent;
+  border-width: 1;
+  border-color: #dd1014;
+  color: #dd1014;
+}
+
+.text--smaller {
+  font-size: 12;
+}
+
+.text--small {
+  font-size: 14;
+}
+
+.text--normal {
+  font-size: 16;
+}
+
+.text--large {
+  font-size: 24;
+}
+
+.text--big {
+  font-size: 32;
+}
+
+.text--bigger {
+  font-size: 36;
+}
+
+.modal {
+  background-color: #fbfbfb;
+  padding: 16;
+}
+
+.modal__close {
+  color: #666;
+}
+
+.modal__header {
+  padding-top: 16;
+}
+
+.modal__body {
+  padding-top: 32px;
+  padding-bottom: 16px;
+}

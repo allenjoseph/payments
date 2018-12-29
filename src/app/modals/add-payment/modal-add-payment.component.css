@@ -1,0 +1,26 @@
+.payment-box {
+  border-width: 1;
+  border-color: #d4d4d7;
+  background-color: #fff;
+  margin-top: 32;
+}
+
+.payment-box__item {
+  border-color: #d4d4d7;
+  font-weight: bold;
+  padding: 12 32;
+}
+
+.payment-box__label {
+  color: #bbb;
+}
+
+.payment-box__input {
+  color: #444;
+}
+
+.payment-box__footer {
+  border-top-width: 1;
+  background-color: #f8fafa;
+  color: #444;
+}

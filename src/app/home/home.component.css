@@ -1,0 +1,18 @@
+.payment-card {
+  border-width: 1;
+  border-color: #d4d4d7;
+  background-color: #fff;
+  margin: 8 0;
+  color: #333;
+  padding: 12 16;
+}
+.payment-card__title {
+  padding-top: 4;
+}
+.payment-card__brand {
+  font-weight: bold;
+}
+.payment-card__amount {
+  font-weight: bold;
+  text-align: right;
+}

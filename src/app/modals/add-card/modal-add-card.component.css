@@ -1,0 +1,26 @@
+.card-form {
+  border-width: 1;
+  border-color: #d4d4d7;
+  background-color: #fff;
+  margin: 8 0;
+}
+
+.card-form__item {
+  font-weight: bold;
+  padding: 12 32;
+}
+
+.card-form__label {
+  color: #bbb;
+}
+
+.card-form__input {
+  color: #444;
+}
+
+.card-form__footer {
+  border-top-width: 1;
+  border-top-color: #d4d4d7;
+  background-color: #f8fafa;
+  color: #444;
+}
