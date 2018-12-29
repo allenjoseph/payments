@@ -4,12 +4,12 @@ import {
     ModalDialogService,
 } from 'nativescript-angular/modal-dialog';
 
-import { ModalAddPaymentComponent } from '../modals/add-payment/modal-add-payment.component';
-import { ModalAddCardComponent } from '../modals/add-card/modal-add-card.component';
-import { IHomePresenterOutput } from './presenter/home.presenter.output';
-import { HomePresenter } from './presenter/home.presenter';
-import { ICard } from '../_domain/card.interface';
-import { IPayment } from '../_domain/payment.interface';
+import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
+import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
+import { IHomePresenterOutput } from '../presenter/home.presenter.output';
+import { HomePresenter } from '../presenter/home.presenter';
+import { ICard } from '../../_domain/card.interface';
+import { IPayment } from '../../_domain/payment.interface';
 
 @Component({
     moduleId: module.id,
@@ -44,7 +44,8 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     }
 
     get totalAmount() {
-        return this.cards.reduce((total, current) => total + current.amount, 0);
+        // return this.cards.reduce((total, current) => total + current.amount, 0);
+        return 0;
     }
 
     private onAddPaymentClose(payment: IPayment): void {

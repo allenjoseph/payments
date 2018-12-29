@@ -3,10 +3,11 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [NativeScriptModule, AppRoutingModule],
+    imports: [NativeScriptModule, LoginModule, AppRoutingModule],
     declarations: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })

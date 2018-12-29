@@ -26,16 +26,18 @@
     "nativescript-angular": "~7.1.0",
     "nativescript-plugin-firebase": "^7.6.0",
     "nativescript-theme-core": "~1.0.4",
+    "ramda": "^0.26.1",
     "reflect-metadata": "~0.1.10",
     "rxjs": "~6.3.0",
     "tns-core-modules": "~5.1.0",
     "zone.js": "~0.8.18"
   },
   "devDependencies": {
-    "@nativescript/schematics": "~0.4.0",
-    "nativescript-dev-typescript": "~0.7.0",
-    "nativescript-dev-webpack": "~0.18.0",
     "@angular/compiler-cli": "~7.1.0",
-    "@ngtools/webpack": "~7.1.0"
+    "@nativescript/schematics": "~0.4.0",
+    "@ngtools/webpack": "~7.1.0",
+    "@types/ramda": "^0.25.45",
+    "nativescript-dev-typescript": "~0.7.0",
+    "nativescript-dev-webpack": "~0.18.0"
   }
 }

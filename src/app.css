@@ -25,6 +25,8 @@ refer to http://docs.nativescript.org/ui/theme.
   padding: 12 16;
 }
 
+/* buttons */
+
 .button {
   background-color: #dd1014;
   color: #fff;
@@ -38,6 +40,8 @@ refer to http://docs.nativescript.org/ui/theme.
   border-color: #dd1014;
   color: #dd1014;
 }
+
+/* texts */
 
 .text--smaller {
   font-size: 12;
@@ -62,6 +66,8 @@ refer to http://docs.nativescript.org/ui/theme.
 .text--bigger {
   font-size: 36;
 }
+
+/* modals */
 
 .modal {
   background-color: #fbfbfb;

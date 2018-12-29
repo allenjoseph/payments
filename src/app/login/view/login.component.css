@@ -1,0 +1,22 @@
+.login-form__title {
+  padding-top: 32;
+  padding-bottom: 32;
+}
+
+.login-form__item {
+  border-width: 1;
+  border-color: #d4d4d7;
+  background-color: #fff;
+  margin: 8 0;
+  font-weight: bold;
+  padding: 12 32;
+}
+
+.login-form__label {
+  color: #bbb;
+}
+
+.login-form__input {
+  color: #444;
+  padding-top: 8;
+}

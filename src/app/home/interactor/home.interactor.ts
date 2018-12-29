@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CardRepository } from '../../_repository/card.repository';
+import { CardService } from '../../_service/card.service';
 import { IOutputBoundary } from './output.boundary';
 import { IInputBoundary } from './input.boundary';
 import { ICard } from '../../_domain/card.interface';
@@ -9,22 +9,20 @@ import { ICard } from '../../_domain/card.interface';
 export class HomeInteractor implements IInputBoundary {
     outputBoundary: IOutputBoundary;
 
-    constructor(private cardRepository: CardRepository) {}
+    constructor(private cardService: CardService) {}
 
     init(presenter: IOutputBoundary) {
         this.outputBoundary = presenter;
     }
 
     getCards(): void {
-        this.cardRepository
-            .getAll()
-            .subscribe(data => this.outputBoundary.onGetCards(data));
+        this.cardService.getAll().subscribe(result => {
+            this.outputBoundary.onGetCards(result);
+        });
     }
 
     addCard(card: ICard): void {
         card.amount = 0;
-        this.cardRepository
-            .add(card)
-            .subscribe(card => this.outputBoundary.onAddCard(card));
+        this.cardService.add(card).subscribe(() => this.getCards());
     }
 }

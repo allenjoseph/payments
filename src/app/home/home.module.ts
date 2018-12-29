@@ -3,7 +3,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { ModalDialogService } from 'nativescript-angular/modal-dialog';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './view/home.component';
 import { ModalAddPaymentComponent } from '../modals/add-payment/modal-add-payment.component';
 import { HomeInteractor } from './interactor/home.interactor';
 import { HomePresenter } from './presenter/home.presenter';

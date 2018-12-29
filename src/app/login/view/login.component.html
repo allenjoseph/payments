@@ -1,0 +1,26 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="LOGIN"></Label>
+</ActionBar>
+
+<StackLayout class="page">
+    <Label horizontalAlignment="center" class="login-form__title text--bigger" text="PAYMENTS"></Label>
+    <GridLayout rows="auto,auto" columns="*" class="login-form__item">
+        <Label row="0" text="email" class="login-form__label text--small"></Label>
+        <TextField row="1" #email
+            hint="user@mail.com"
+            keyboardType="email"
+            returnKeyType="next"
+            autocapitalizationType="none"
+            class="login-form__input text--normal"></TextField>
+    </GridLayout>
+    <GridLayout rows="auto,auto" columns="*" class="login-form__item">
+        <Label row="0" text="password" class="login-form__label text--small"></Label>
+        <TextField row="1" #password
+            secure="true"
+            autocorrect="false"
+            hint="* * * * * * * *"
+            returnKeyType="done"
+            class="login-form__input text--normal"></TextField>
+    </GridLayout>
+    <Button class="button button-outline" text="LOGIN" (tap)="onTapLogin(email.text, password.text)" marginTop="8"></Button>
+</StackLayout>

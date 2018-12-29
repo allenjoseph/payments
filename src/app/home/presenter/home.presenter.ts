@@ -30,8 +30,6 @@ export class HomePresenter implements IHomePresenterInput, IOutputBoundary {
         this.interactor.addCard(card);
     }
 
-    onAddCard(card: ICard): void {}
-
     addPayment(payment: IPayment): void {
         console.log(payment);
     }
