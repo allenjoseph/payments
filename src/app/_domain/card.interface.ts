@@ -4,4 +4,5 @@ export interface ICard {
     bank: string;
     description: string;
     amount?: number;
+    uid?: string;
 }

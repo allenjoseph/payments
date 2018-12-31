@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     }
 
     onCardTap(card: ICard) {
-        this.showAddPaymentModal(card, this.onAddPaymentClose.bind(this));
+        this.showAddPaymentModal(card, this.onAddPaymentClose.bind(this, card));
     }
 
     setCards(cards: ICard[]): void {
@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
         return 0;
     }
 
-    private onAddPaymentClose(payment: IPayment): void {
-        this.presenter.addPayment(payment);
+    private onAddPaymentClose(card: ICard, payment: IPayment): void {
+        this.presenter.addPayment(card, payment);
     }
 
     private onAddCardClose(card: ICard) {

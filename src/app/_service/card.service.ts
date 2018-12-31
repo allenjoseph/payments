@@ -1,7 +1,7 @@
 import { Observable, of, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ICard } from '../_domain/card.interface';
-import * as firebase from 'nativescript-plugin-firebase';
+import { getValue, push } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings';
 import { map } from 'rxjs/operators';
 import * as R from 'ramda';
@@ -13,20 +13,25 @@ export class CardService {
     private name: string = '/cards/';
 
     getAll(): Observable<any> {
-        return from(firebase.getValue(this.name + this.userId)).pipe(
-            map(result => R.values(result.value))
+        return from(getValue(this.path)).pipe(
+            map(result =>
+                R.map(key => {
+                    result.value[key].uid = key;
+                    return result.value[key];
+                }, R.keys(result.value))
+            )
         );
     }
 
     add(card: ICard): Observable<any> {
-        return from(firebase.push(this.name + this.userId, card));
+        return from(push(this.path, card));
     }
 
     remove(card: ICard): Observable<any> {
         return of(card);
     }
 
-    get userId(): string {
-        return getString('userId');
+    get path(): string {
+        return this.name + getString('userId');
     }
 }

@@ -7,5 +7,5 @@ export interface IHomePresenterInput {
 
     addCard(card: ICard): void;
 
-    addPayment(payment: any): void;
+    addPayment(card: ICard, payment: any): void;
 }
