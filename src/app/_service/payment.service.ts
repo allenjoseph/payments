@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { getString } from 'tns-core-modules/application-settings';
 import { from, Observable, of } from 'rxjs';
-import { getValue, push } from 'nativescript-plugin-firebase';
+import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { map } from 'rxjs/operators';
 import * as R from 'ramda';
 import { IPayment } from '../_domain/payment.interface';
@@ -19,7 +19,7 @@ export class PaymentService {
     }
 
     add(payment: IPayment): Observable<any> {
-        console.log(this.path, payment);
+        payment.createdAt = ServerValue.TIMESTAMP;
         return of(push(this.path, payment));
     }
 

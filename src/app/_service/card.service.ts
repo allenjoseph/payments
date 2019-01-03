@@ -1,9 +1,9 @@
 import { Observable, of, from } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ICard } from '../_domain/card.interface';
-import { getValue, push } from 'nativescript-plugin-firebase';
+import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings';
-import { map } from 'rxjs/operators';
+import { map, flatMap, mergeMap, toArray } from 'rxjs/operators';
 import * as R from 'ramda';
 
 @Injectable({
@@ -14,16 +14,30 @@ export class CardService {
 
     getAll(): Observable<any> {
         return from(getValue(this.path)).pipe(
-            map(result =>
-                R.map(key => {
-                    result.value[key].uid = key;
-                    return result.value[key];
-                }, R.keys(result.value))
-            )
+            map(this.formatGetAllResponse),
+            flatMap(cards =>
+                Observable.create(observer => {
+                    cards.forEach(card => observer.next(card));
+                    observer.complete();
+                })
+            ),
+            mergeMap(({ id, value }) =>
+                from(this.getPayments(id)).pipe(
+                    map(data => ({
+                        ...value,
+                        cardId: id,
+                        payments: R.values(data.value),
+                    }))
+                )
+            ),
+            toArray()
         );
     }
 
     add(card: ICard): Observable<any> {
+        card.userId = this.userId;
+        card.createdAt = ServerValue.TIMESTAMP;
+
         return from(push(this.path, card));
     }
 
@@ -32,6 +46,21 @@ export class CardService {
     }
 
     get path(): string {
-        return this.name + getString('userId');
+        return this.name + this.userId;
+    }
+
+    get userId(): string {
+        return getString('userId');
+    }
+
+    private formatGetAllResponse(result: any) {
+        return R.keys(result.value).map(id => ({
+            id,
+            value: result.value[id],
+        }));
+    }
+
+    private getPayments(cardId: string) {
+        return getValue(`/payments/${cardId}`);
     }
 }

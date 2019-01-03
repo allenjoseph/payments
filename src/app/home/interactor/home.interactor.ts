@@ -22,19 +22,17 @@ export class HomeInteractor implements IInputBoundary {
     }
 
     getCards(): void {
-        this.cardService.getAll().subscribe(result => {
-            console.log(result);
-            this.outputBoundary.onGetCards(result);
-        });
+        this.cardService
+            .getAll()
+            .subscribe(result => this.outputBoundary.onGetCards(result));
     }
 
     addCard(card: ICard): void {
-        card.amount = 0;
         this.cardService.add(card).subscribe(() => this.getCards());
     }
 
     addPayment(card: ICard, payment: IPayment): void {
-        setString('cardId', card.uid);
+        setString('cardId', card.cardId);
         this.paymentService.add(payment);
     }
 }

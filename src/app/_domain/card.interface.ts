@@ -3,6 +3,11 @@ export interface ICard {
     type: string;
     bank: string;
     description: string;
-    amount?: number;
-    uid?: string;
+    userId?: string;
+    createdAt?: any;
+
+    /* view model */
+    cardId?: string;
+    payments?: any[];
+    totalAmount?: number;
 }

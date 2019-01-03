@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as R from 'ramda';
 
 import { IHomePresenterInput } from './home.presenter.input';
 import { IHomePresenterOutput } from './home.presenter.output';
@@ -23,6 +24,9 @@ export class HomePresenter implements IHomePresenterInput, IOutputBoundary {
     }
 
     onGetCards(cards: ICard[]): void {
+        cards.forEach(card => {
+            card.totalAmount = R.sum(card.payments.map(o => o.amount));
+        });
         this.view.setCards(cards);
     }
 
