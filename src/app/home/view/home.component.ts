@@ -19,6 +19,7 @@ import { IPayment } from '../../_domain/payment.interface';
 })
 export class HomeComponent implements OnInit, IHomePresenterOutput {
     cards: ICard[];
+    isBusy = true;
 
     constructor(
         private _modalService: ModalDialogService,
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
 
     setCards(cards: ICard[]): void {
         this.cards = cards;
+        this.isBusy = false;
     }
 
     onAddCardTap() {

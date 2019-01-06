@@ -4,6 +4,7 @@ import { from, Observable, of } from 'rxjs';
 import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { map } from 'rxjs/operators';
 import * as R from 'ramda';
+
 import { IPayment } from '../_domain/payment.interface';
 
 @Injectable({

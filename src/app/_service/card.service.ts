@@ -1,10 +1,11 @@
 import { Observable, of, from } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ICard } from '../_domain/card.interface';
 import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings';
 import { map, flatMap, mergeMap, toArray } from 'rxjs/operators';
 import * as R from 'ramda';
+
+import { ICard } from '../_domain/card.interface';
 
 @Injectable({
     providedIn: 'root',

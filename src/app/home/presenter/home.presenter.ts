@@ -24,9 +24,9 @@ export class HomePresenter implements IHomePresenterInput, IOutputBoundary {
     }
 
     onGetCards(cards: ICard[]): void {
-        cards.forEach(card => {
-            card.totalAmount = R.sum(card.payments.map(o => o.amount));
-        });
+        cards.forEach(
+            card => (card.totalAmount = R.sum(card.payments.map(o => o.amount)))
+        );
         this.view.setCards(cards);
     }
 
