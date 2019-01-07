@@ -1,24 +1,26 @@
-<GridLayout class="modal" rows="auto, auto, *, auto" columns="*">
-    <Label row="0" text="&#xea0f;" class="icon modal__close text--large" horizontalAlignment="right" (tap)="close()"></Label>
-    <!-- CARD INFORMATION -->
-    <StackLayout row="1" class="modal__header">
-        <Label class="text--normal">
-            <FormattedString>
-                <Span [text]="card.brand"></Span>
-                <Span text=" - "></Span>
-                <Span [text]="card.type"></Span>
-            </FormattedString>
-        </Label>
-        <Label [text]="card.bank" class="text--big"></Label>
-    </StackLayout>
-    <!-- ADD PAYMENT FORM -->
-    <GridLayout row=2 rows="auto,auto,auto" columns="*" class="payment-box" verticalAlignment="top">
-        <StackLayout class="payment-box__item">
-            <Label row="0" text="Payment Amount" class="payment-box__label text--small"></Label>
-            <TextField #amount row="1" hint="0.00" keyboardType="number" class="payment-box__input text--big"></TextField>
+<ScrollView>
+    <GridLayout class="modal" rows="auto, auto, *, auto" columns="*">
+        <Label row="0" text="&#xea0f;" class="icon modal__close text--large" horizontalAlignment="right" (tap)="close()"></Label>
+        <!-- CARD INFORMATION -->
+        <StackLayout row="1" class="modal__header">
+            <Label class="text--normal">
+                <FormattedString>
+                    <Span [text]="card.brand"></Span>
+                    <Span text=" - "></Span>
+                    <Span [text]="card.type"></Span>
+                </FormattedString>
+            </Label>
+            <Label [text]="card.bank" class="text--big"></Label>
         </StackLayout>
-        <TextField #description row="2" hint="Description" class="payment-box__item payment-box__footer text--normal"></TextField>
+        <!-- ADD PAYMENT FORM -->
+        <GridLayout row=2 rows="auto,auto,auto" columns="*" class="payment-box" verticalAlignment="top">
+            <StackLayout class="payment-box__item">
+                <Label row="0" text="Payment Amount" class="payment-box__label text--small"></Label>
+                <TextField #amount row="1" hint="0.00" keyboardType="number" class="payment-box__input text--big"></TextField>
+            </StackLayout>
+            <TextField #description row="2" hint="Description" class="payment-box__item payment-box__footer text--normal"></TextField>
+        </GridLayout>
+        <!-- ACTIONS BUTTONS -->
+        <Button class="button" row="3" text="ADD PAYMENT" (tap)="save(amount.text, description.text)"></Button>
     </GridLayout>
-    <!-- ACTIONS BUTTONS -->
-    <Button class="button" row="3" text="ADD PAYMENT" (tap)="save(amount.text, description.text)"></Button>
-</GridLayout>
+</ScrollView>

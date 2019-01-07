@@ -1,27 +1,29 @@
-<GridLayout class="modal" rows="auto,auto,*,auto" columns="*">
-    <Label row="0" text="&#xea0f;" class="icon modal__close text--large" horizontalAlignment="right" (tap)="close()"></Label>
-    <!-- TITLE -->
-    <StackLayout row="1" class="modal__header">
-        <Label text="New Card" class="text--big"></Label>
-    </StackLayout>
-    <!-- ADD CARD FORM -->
-    <StackLayout row="2" class="modal__body" verticalAlignment="top">
-        <GridLayout rows="auto" columns="auto, *" class="card-form card-form__item">
-            <Label col="0" text="Brand" class="card-form__label text--small"></Label>
-            <TextView col="1" hint="VISA" [text]="brand" class="text--normal" editable="false" horizontalAlignment="right" (tap)="onBrandTap()"></TextView>
-        </GridLayout>
-        <GridLayout rows="auto" columns="auto, *" class="card-form card-form__item">
-            <Label col="0" text="Type" class="card-form__label text--small"></Label>
-            <TextView col="1" hint="CRÉDITO" [text]="type" class="text--normal" editable="false" horizontalAlignment="right" (tap)="onTypeTap()"></TextView>
-        </GridLayout>
-        <GridLayout rows="auto,auto" columns="*" class="card-form">
-            <StackLayout row="0" class="card-form__item">
-                <Label text="Bank" class="card-form__label text--small"></Label>
-                <TextField #bank hint="BBVA" class="card-form__input text--big"></TextField>
-            </StackLayout>
-            <TextField #description row="1" hint="Description" class="card-form__item card-form__footer text--normal"></TextField>
-        </GridLayout>
-    </StackLayout>
-    <!-- ACTIONS BUTTONS -->
-    <Button row="3" class="button" text="SAVE" (tap)="save(bank.text, description.text)"></Button>
-</GridLayout>
+<ScrollView>
+    <GridLayout class="modal" rows="auto,auto,*,auto" columns="*">
+        <Label row="0" text="&#xea0f;" class="icon modal__close text--large" horizontalAlignment="right" (tap)="close()"></Label>
+        <!-- TITLE -->
+        <StackLayout row="1" class="modal__header">
+            <Label text="New Card" class="text--big"></Label>
+        </StackLayout>
+        <!-- ADD CARD FORM -->
+        <StackLayout row="2" class="modal__body" verticalAlignment="top">
+            <GridLayout rows="auto" columns="auto, *" class="card-form card-form__item">
+                <Label col="0" text="Brand" class="card-form__label text--small"></Label>
+                <TextView col="1" hint="VISA" [text]="brand" class="text--normal" editable="false" horizontalAlignment="right" (tap)="onBrandTap()"></TextView>
+            </GridLayout>
+            <GridLayout rows="auto" columns="auto, *" class="card-form card-form__item">
+                <Label col="0" text="Type" class="card-form__label text--small"></Label>
+                <TextView col="1" hint="CRÉDITO" [text]="type" class="text--normal" editable="false" horizontalAlignment="right" (tap)="onTypeTap()"></TextView>
+            </GridLayout>
+            <GridLayout rows="auto,auto" columns="*" class="card-form">
+                <StackLayout row="0" class="card-form__item">
+                    <Label text="Bank" class="card-form__label text--small"></Label>
+                    <TextField #bank hint="BBVA" class="card-form__input text--big"></TextField>
+                </StackLayout>
+                <TextField #description row="1" hint="Description" class="card-form__item card-form__footer text--normal"></TextField>
+            </GridLayout>
+        </StackLayout>
+        <!-- ACTIONS BUTTONS -->
+        <Button row="3" class="button" text="SAVE" (tap)="save(bank.text, description.text)"></Button>
+    </GridLayout>
+</ScrollView>
