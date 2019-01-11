@@ -5,8 +5,8 @@ import { IHomePresenterInput } from './home.presenter.input';
 import { IHomePresenterOutput } from './home.presenter.output';
 import { HomeInteractor } from '../interactor/home.interactor';
 import { IOutputBoundary } from '../interactor/output.boundary';
-import { ICard } from '../../_domain/card.interface';
-import { IPayment } from '../../_domain/payment.interface';
+import { ICard } from '../../domain/card.interface';
+import { IPayment } from '../../domain/payment.interface';
 
 @Injectable()
 export class HomePresenter implements IHomePresenterInput, IOutputBoundary {

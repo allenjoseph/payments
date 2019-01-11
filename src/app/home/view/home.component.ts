@@ -8,8 +8,9 @@ import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-pay
 import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
 import { IHomePresenterOutput } from '../presenter/home.presenter.output';
 import { HomePresenter } from '../presenter/home.presenter';
-import { ICard } from '../../_domain/card.interface';
-import { IPayment } from '../../_domain/payment.interface';
+import { ICard } from '../../domain/card.interface';
+import { IPayment } from '../../domain/payment.interface';
+import { map, sum } from 'ramda';
 
 @Component({
     moduleId: module.id,
@@ -20,6 +21,7 @@ import { IPayment } from '../../_domain/payment.interface';
 export class HomeComponent implements OnInit, IHomePresenterOutput {
     cards: ICard[];
     isBusy = true;
+    totalAmount = 0;
 
     constructor(
         private _modalService: ModalDialogService,
@@ -38,16 +40,12 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
 
     setCards(cards: ICard[]): void {
         this.cards = cards;
+        this.totalAmount = sum(map(card => card.totalAmount, cards));
         this.isBusy = false;
     }
 
     onAddCardTap() {
         this.showAddCardModal({}, this.onAddCardClose.bind(this));
-    }
-
-    get totalAmount() {
-        // return this.cards.reduce((total, current) => total + current.amount, 0);
-        return 0;
     }
 
     private onAddPaymentClose(card: ICard, payment: IPayment): void {

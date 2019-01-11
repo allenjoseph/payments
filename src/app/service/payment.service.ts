@@ -5,7 +5,7 @@ import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { map } from 'rxjs/operators';
 import * as R from 'ramda';
 
-import { IPayment } from '../_domain/payment.interface';
+import { IPayment } from '../domain/payment.interface';
 
 @Injectable({
     providedIn: 'root',

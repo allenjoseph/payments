@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { setString } from 'tns-core-modules/application-settings';
 
-import { CardService } from '../../_service/card.service';
+import { CardService } from '../../service/card.service';
 import { IOutputBoundary } from './output.boundary';
 import { IInputBoundary } from './input.boundary';
-import { ICard } from '../../_domain/card.interface';
-import { IPayment } from '../../_domain/payment.interface';
-import { PaymentService } from '../../_service/payment.service';
+import { ICard } from '../../domain/card.interface';
+import { IPayment } from '../../domain/payment.interface';
+import { PaymentService } from '../../service/payment.service';
 
 @Injectable()
 export class HomeInteractor implements IInputBoundary {

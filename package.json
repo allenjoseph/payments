@@ -6,10 +6,10 @@
   "license": "ISC",
   "nativescript": {
     "id": "org.nativescript.payments",
-    "tns-android": {
+    "tns-ios": {
       "version": "5.1.0"
     },
-    "tns-ios": {
+    "tns-android": {
       "version": "5.1.0"
     }
   },

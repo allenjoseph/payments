@@ -1,4 +1,4 @@
-import { ICard } from '../../_domain/card.interface';
+import { ICard } from '../../domain/card.interface';
 
 export interface IHomePresenterInput {
     init(component: any): void;

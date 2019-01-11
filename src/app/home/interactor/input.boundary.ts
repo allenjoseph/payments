@@ -1,5 +1,5 @@
-import { ICard } from '../../_domain/card.interface';
-import { IPayment } from '~/app/_domain/payment.interface';
+import { ICard } from '../../domain/card.interface';
+import { IPayment } from '~/app/domain/payment.interface';
 
 export interface IInputBoundary {
     init(presenter: any): void;
