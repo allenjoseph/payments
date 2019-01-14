@@ -49,10 +49,12 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     }
 
     private onAddPaymentClose(card: ICard, payment: IPayment): void {
+        this.isBusy = true;
         this.presenter.addPayment(card, payment);
     }
 
     private onAddCardClose(card: ICard) {
+        this.isBusy = true;
         this.presenter.addCard(card);
     }
 
