@@ -1,35 +1,73 @@
 <ActionBar class="action-bar">
     <Label class="action-bar-title" text="SUMMARY"></Label>
 </ActionBar>
-<GridLayout rows="auto, auto, *" columns="*, *, *" class="page">
-    <Label row="0" col="0" colSpan="3" horizontalAlignment="center" paddingTop="32">
+
+<GridLayout rows="auto, auto, *" columns="*, *, *" class="page home">
+    <Label row="0" col="0" colSpan="3"
+        horizontalAlignment="center"
+        paddingTop="32"
+        paddingLeft="16"
+        paddingRight="16">
         <FormattedString>
             <Span color="#333" class="text--large" text="S/ "></Span>
             <Span color="#333" class="text--bigger" [text]="totalAmount | number:'1.2-2'"></Span>
         </FormattedString>
     </Label>
-    <Label row="1" col="0" colSpan="3" horizontalAlignment="center" color="#666" paddingBottom="32" text="Total payments this month."></Label>
-    <StackLayout row="2" col="0" colSpan="3">
-        <ScrollView>
-            <StackLayout>
-                <GridLayout *ngFor="let item of cards" rows="auto, auto" columns="3*,2*" class="payment-card" (onTap)="onCardTap(item)">
-                    <Label row="0" col="0" class="payment-card__brand text--smaller">
+    <Label row="1" col="0" colSpan="3"
+        horizontalAlignment="center"
+        color="#666"
+        paddingBottom="32"
+        paddingLeft="16"
+        paddingRight="16"
+        text="Total payments this month."></Label>
+    <GridLayout row="2" col="0" colSpan="3" rows="*, auto">
+        <RadListView #myListView
+            row="0"
+            class="card-list"
+            [items]="cards"
+            selectionBehavior="None"
+            (itemSwipeProgressStarted)="onSwipeCellStarted($event)"
+            swipeActions="true">
+            <ng-template tkListItemTemplate let-item="item">
+                <GridLayout rows="auto, auto" columns="3*,2*"
+                    class="payment-card"
+                    (onTap)="onCardTap(item)">
+                    <Label row="0" col="0"
+                        class="payment-card__brand text--smaller">
                         <FormattedString>
                             <Span [text]="item.brand"></Span>
                             <Span text=" - "></Span>
                             <Span [text]="item.type"></Span>
                         </FormattedString>
                     </Label>
-                    <Label row="1" col="0" [text]="item.bank" class="payment-card__title text--large"></Label>
+                    <Label row="1" col="0" [text]="item.bank"
+                        class="payment-card__title text--large"></Label>
                     <Label row="0" col="1" rowSpan="2"
                         [text]="item.totalAmount | number:'1.2-2'"
                         verticalAlignment="center"
                         class="payment-card__amount text--large"></Label>
                 </GridLayout>
-                <Button class="button button-outline" text="ADD CARD" (tap)="onAddCardTap()" marginTop="8"></Button>
-            </StackLayout>
-        </ScrollView>
-    </StackLayout>
+            </ng-template>
+            <GridLayout *tkListItemSwipeTemplate
+                columns="*, auto">
+                <StackLayout id="detail-view" col="2"
+                    class="card-list__right-swipe"
+                    (tap)="onRightSwipeClick($event)">
+                    <Label text="&#xe900;"
+                        class="icon text--large card-list__right-icon"
+                        verticalAlignment="center"
+                        horizontalAlignment="center"></Label>
+                </StackLayout>
+            </GridLayout>
+        </RadListView>
+        <Button row="1"
+            class="button button-outline"
+            marginTop="8"
+            marginLeft="16"
+            marginRight="16"
+            text="ADD CARD"
+            (tap)="onAddCardTap()"></Button>
+    </GridLayout>
     <ActivityIndicator row="0" col="0" rowSpan="3" colSpan="3"
         #activityIndicator
         [busy]="isBusy"

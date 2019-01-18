@@ -1,8 +1,27 @@
+.home {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.card-list {
+  background-color: #fafafa;
+}
+
+.card-list__right-swipe {
+  background-color: #dd1014;
+  padding: 16;
+}
+
+.card-list__right-icon {
+  margin-top: 8;
+  color: #ffffff;
+}
+
 .payment-card {
-  border-width: 1;
+  border-bottom-width: 0.5;
   border-color: #d4d4d7;
-  background-color: #fff;
-  margin: 8 0;
+  background-color: #fafafa;
+  margin: 0;
   color: #333;
   padding: 12 16;
 }

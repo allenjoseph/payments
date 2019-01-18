@@ -3,6 +3,8 @@ import {
     ModalDialogOptions,
     ModalDialogService,
 } from 'nativescript-angular/modal-dialog';
+import { ListViewEventData } from 'nativescript-ui-listview';
+import { map, sum } from 'ramda';
 
 import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
 import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
@@ -10,7 +12,6 @@ import { IHomePresenterOutput } from '../presenter/home.presenter.output';
 import { HomePresenter } from '../presenter/home.presenter';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
-import { map, sum } from 'ramda';
 
 @Component({
     moduleId: module.id,
@@ -48,9 +49,25 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
         this.showAddCardModal({}, this.onAddCardClose.bind(this));
     }
 
-    private onAddPaymentClose(card: ICard, payment: IPayment): void {
+    onSwipeCellStarted(args: ListViewEventData) {
+        const swipeLimits = args.data.swipeLimits;
+        const swipeView = args['object'];
+        const rightItem = swipeView.getViewById<any>('detail-view');
+        swipeLimits.left = 0;
+        swipeLimits.right = rightItem.getMeasuredWidth();
+    }
+
+    onRightSwipeClick(args) {
+        console.log('Right swipe click');
+    }
+
+    private onAddPaymentClose(card: ICard, payment: IPayment | false): void {
         this.isBusy = true;
-        this.presenter.addPayment(card, payment);
+        if (payment) {
+            this.presenter.addPayment(card, payment);
+        } else {
+            this.isBusy = false;
+        }
     }
 
     private onAddCardClose(card: ICard) {
