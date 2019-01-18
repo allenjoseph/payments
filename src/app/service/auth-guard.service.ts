@@ -1,25 +1,17 @@
-import {
-    CanActivate,
-    CanLoad,
-    ActivatedRouteSnapshot,
-    Route,
-} from '@angular/router';
+import { CanLoad, Route } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { RouterExtensions } from 'nativescript-angular/router';
+
 import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanLoad {
-    constructor(private authService: AuthService) {}
-
-    // For Login
-    canActivate(route: ActivatedRouteSnapshot): boolean {
-        if (!!this.authService.userSnapshot) {
-            return false;
-        }
-        return true;
-    }
+export class AuthGuard implements CanLoad {
+    constructor(
+        private router: RouterExtensions,
+        private authService: AuthService
+    ) {}
 
     canLoad(route: Route): boolean {
         if (!!this.authService.userSnapshot) {
