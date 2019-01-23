@@ -21,17 +21,18 @@
         paddingRight="16"
         text="Total payments this month."></Label>
     <GridLayout row="2" col="0" colSpan="3" rows="*, auto">
-        <RadListView #myListView
+        <RadListView #cardsRadListView
             row="0"
             class="card-list"
             [items]="cards"
             selectionBehavior="None"
             (itemSwipeProgressStarted)="onSwipeCellStarted($event)"
+            (itemSwipeProgressEnded)="onSwipeCellEnded($event)"
             swipeActions="true">
             <ng-template tkListItemTemplate let-item="item">
                 <GridLayout rows="auto, auto" columns="3*,2*"
                     class="payment-card"
-                    (onTap)="onCardTap(item)">
+                    (onTap)="onTapCard(item)">
                     <Label row="0" col="0"
                         class="payment-card__brand text--smaller">
                         <FormattedString>
@@ -53,10 +54,7 @@
                 <StackLayout id="detail-view" col="2"
                     class="card-list__right-swipe"
                     (tap)="onRightSwipeClick($event)">
-                    <Label text="&#xe900;"
-                        class="icon text--large card-list__right-icon"
-                        verticalAlignment="center"
-                        horizontalAlignment="center"></Label>
+                    <Label text="&#xe900;" class="icon text--large card-list__right-icon"></Label>
                 </StackLayout>
             </GridLayout>
         </RadListView>

@@ -1,10 +1,17 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewContainerRef,
+    ViewChild,
+    ElementRef,
+} from '@angular/core';
 import {
     ModalDialogOptions,
     ModalDialogService,
 } from 'nativescript-angular/modal-dialog';
-import { ListViewEventData } from 'nativescript-ui-listview';
+import { RadListView, SwipeActionsEventData } from 'nativescript-ui-listview';
 import { map, sum } from 'ramda';
+import { View } from 'tns-core-modules/ui/page';
 
 import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
 import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
@@ -24,6 +31,9 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     isBusy = true;
     totalAmount = 0;
 
+    @ViewChild('cardsRadListView') cardsRadListViewRef: ElementRef;
+    cardsRadListView: RadListView;
+
     constructor(
         private _modalService: ModalDialogService,
         private _vcRef: ViewContainerRef,
@@ -33,10 +43,12 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     ngOnInit(): void {
         this.presenter.init(this);
         this.presenter.getCards();
+        this.cardsRadListView = this.cardsRadListViewRef.nativeElement;
     }
 
-    onCardTap(card: ICard) {
-        this.showAddPaymentModal(card, this.onAddPaymentClose.bind(this, card));
+    onTapCard(card: ICard) {
+        this.cardsRadListView.notifySwipeToExecuteFinished();
+        this.showAddPaymentModal(card, this.onCloseAddPayment.bind(this, card));
     }
 
     setCards(cards: ICard[]): void {
@@ -46,22 +58,28 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     }
 
     onAddCardTap() {
-        this.showAddCardModal({}, this.onAddCardClose.bind(this));
+        this.showAddCardModal({}, this.onCloseAddCard.bind(this));
     }
 
-    onSwipeCellStarted(args: ListViewEventData) {
+    onSwipeCellStarted(args: SwipeActionsEventData) {
         const swipeLimits = args.data.swipeLimits;
-        const swipeView = args['object'];
-        const rightItem = swipeView.getViewById<any>('detail-view');
+        const swipeView = args.swipeView;
+        const rightItem = swipeView.getViewById<View>('detail-view');
         swipeLimits.left = 0;
         swipeLimits.right = rightItem.getMeasuredWidth();
     }
 
-    onRightSwipeClick(args) {
-        console.log('Right swipe click');
+    onSwipeCellEnded(args: SwipeActionsEventData) {
+        if (args.data.x === 0) {
+            this.cardsRadListView.notifySwipeToExecuteFinished();
+        }
     }
 
-    private onAddPaymentClose(card: ICard, payment: IPayment | false): void {
+    onRightSwipeClick(args) {
+        this.cardsRadListView.notifySwipeToExecuteFinished();
+    }
+
+    private onCloseAddPayment(card: ICard, payment: IPayment | false): void {
         this.isBusy = true;
         if (payment) {
             this.presenter.addPayment(card, payment);
@@ -70,7 +88,7 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
         }
     }
 
-    private onAddCardClose(card: ICard) {
+    private onCloseAddCard(card: ICard) {
         this.isBusy = true;
         this.presenter.addCard(card);
     }
