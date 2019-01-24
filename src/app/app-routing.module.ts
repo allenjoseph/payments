@@ -12,6 +12,11 @@ const routes: Routes = [
         loadChildren: '~/app/home/home.module#HomeModule',
         canLoad: [AuthGuard],
     },
+    {
+        path: 'payments',
+        loadChildren: '~/app/payment/payment.module#PaymentModule',
+        canLoad: [AuthGuard],
+    },
 ];
 
 @NgModule({

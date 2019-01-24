@@ -13,8 +13,8 @@ import { ModalAddCardComponent } from '../modals/add-card/modal-add-card.compone
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        HomeRoutingModule,
         NativeScriptUIListViewModule,
+        HomeRoutingModule,
     ],
     declarations: [
         ModalAddPaymentComponent,

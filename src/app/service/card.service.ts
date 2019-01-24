@@ -46,6 +46,10 @@ export class CardService {
         return of(card);
     }
 
+    getPayments(cardId: string) {
+        return getValue(`/payments/${cardId}`);
+    }
+
     get path(): string {
         return this.name + this.userId;
     }
@@ -59,9 +63,5 @@ export class CardService {
             id,
             value: result.value[id],
         }));
-    }
-
-    private getPayments(cardId: string) {
-        return getValue(`/payments/${cardId}`);
     }
 }

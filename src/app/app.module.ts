@@ -7,7 +7,7 @@ import { LoginModule } from './login/login.module';
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [NativeScriptModule, LoginModule, AppRoutingModule],
+    imports: [NativeScriptModule, AppRoutingModule, LoginModule],
     declarations: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })

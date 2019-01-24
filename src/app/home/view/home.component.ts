@@ -9,7 +9,7 @@ import {
     ModalDialogOptions,
     ModalDialogService,
 } from 'nativescript-angular/modal-dialog';
-import { RadListView, SwipeActionsEventData } from 'nativescript-ui-listview';
+import { RadListView, ListViewEventData } from 'nativescript-ui-listview';
 import { map, sum } from 'ramda';
 import { View } from 'tns-core-modules/ui/page';
 
@@ -19,6 +19,7 @@ import { IHomePresenterOutput } from '../presenter/home.presenter.output';
 import { HomePresenter } from '../presenter/home.presenter';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
     moduleId: module.id,
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
     constructor(
         private _modalService: ModalDialogService,
         private _vcRef: ViewContainerRef,
-        private presenter: HomePresenter
+        private presenter: HomePresenter,
+        private router: RouterExtensions
     ) {}
 
     ngOnInit(): void {
@@ -61,22 +63,19 @@ export class HomeComponent implements OnInit, IHomePresenterOutput {
         this.showAddCardModal({}, this.onCloseAddCard.bind(this));
     }
 
-    onSwipeCellStarted(args: SwipeActionsEventData) {
+    onSwipeCellStarted(args: ListViewEventData) {
         const swipeLimits = args.data.swipeLimits;
-        const swipeView = args.swipeView;
-        const rightItem = swipeView.getViewById<View>('detail-view');
+        const swipeView = args.object;
+        const rightItem = swipeView.getViewById<View>('left-actions');
         swipeLimits.left = 0;
         swipeLimits.right = rightItem.getMeasuredWidth();
+        swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
     }
 
-    onSwipeCellEnded(args: SwipeActionsEventData) {
-        if (args.data.x === 0) {
-            this.cardsRadListView.notifySwipeToExecuteFinished();
-        }
-    }
-
-    onRightSwipeClick(args) {
+    onTapListPayments(args) {
         this.cardsRadListView.notifySwipeToExecuteFinished();
+        const card = args.object.bindingContext;
+        this.router.navigate(['/payments', { cardId: card.cardId }]);
     }
 
     private onCloseAddPayment(card: ICard, payment: IPayment | false): void {

@@ -26,9 +26,8 @@
             class="card-list"
             [items]="cards"
             selectionBehavior="None"
-            (itemSwipeProgressStarted)="onSwipeCellStarted($event)"
-            (itemSwipeProgressEnded)="onSwipeCellEnded($event)"
-            swipeActions="true">
+            swipeActions="true"
+            (itemSwipeProgressStarted)="onSwipeCellStarted($event)">
             <ng-template tkListItemTemplate let-item="item">
                 <GridLayout rows="auto, auto" columns="3*,2*"
                     class="payment-card"
@@ -50,11 +49,14 @@
                 </GridLayout>
             </ng-template>
             <GridLayout *tkListItemSwipeTemplate
-                columns="*, auto">
-                <StackLayout id="detail-view" col="2"
+                columns="auto, *, auto">
+                <StackLayout id="right-actions" col="0"></StackLayout>
+                <StackLayout id="left-actions" col="2"
                     class="card-list__right-swipe"
-                    (tap)="onRightSwipeClick($event)">
-                    <Label text="&#xe900;" class="icon text--large card-list__right-icon"></Label>
+                    (tap)="onTapListPayments($event)">
+                    <Label text="&#xe900;"
+                        class="icon text--large card-list__right-icon">
+                    </Label>
                 </StackLayout>
             </GridLayout>
         </RadListView>

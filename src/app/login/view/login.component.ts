@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'nativescript-plugin-firebase';
@@ -11,7 +11,7 @@ import { AuthService } from '~/app/service/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     isBusy = true;
     authSuscription: Subscription;
 
@@ -29,13 +29,18 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authSuscription.unsubscribe();
     }
 
+    ngAfterViewInit(): void {
+        // hack to update ActivityIndicator
+        setTimeout(() => (this.isBusy = this.isBusy));
+    }
+
     onTapLogin(email: string, password: string) {
         this.isBusy = true;
         this.authService.login({ email, password });
     }
 
     private onChangeUser(user: User): void {
-        setTimeout(() => (this.isBusy = false));
+        this.isBusy = false;
         if (user) {
             this.router.navigate(['/home'], { clearHistory: true });
         }

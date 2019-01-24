@@ -1,0 +1,16 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="PAYMENTS"></Label>
+</ActionBar>
+
+<GridLayout>
+    <ListView [items]="payments | async" class="list-group">
+        <ng-template let-item="item" let-i="index">
+            <GridLayout class="list-group-item" columns="*, auto" rows="auto, auto">
+                <Label row="0" col="0" [text]="item.description"></Label>
+                <Label row="0" col="1" [text]="item.amount | number:'1.2-2'"></Label>
+                <Label row="1" col="0" colSpan="2" [text]="item.createdAt | date:'longDate'"
+                    class="text--smaller"></Label>
+            </GridLayout>
+        </ng-template>
+    </ListView>
+</GridLayout>
