@@ -2,29 +2,20 @@ import { Injectable } from '@angular/core';
 import { setString } from 'tns-core-modules/application-settings';
 
 import { CardService } from '../../service/card.service';
-import { IOutputBoundary } from './output.boundary';
-import { IInputBoundary } from './input.boundary';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
 import { PaymentService } from '../../service/payment.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class HomeInteractor implements IInputBoundary {
-    outputBoundary: IOutputBoundary;
-
+export class HomeInteractor {
     constructor(
         private cardService: CardService,
         private paymentService: PaymentService
     ) {}
 
-    init(presenter: IOutputBoundary) {
-        this.outputBoundary = presenter;
-    }
-
-    getCards(): void {
-        this.cardService
-            .getAll()
-            .subscribe(result => this.outputBoundary.onGetCards(result));
+    getCards(): Observable<ICard[]> {
+        return this.cardService.getAll();
     }
 
     addCard(card: ICard): void {

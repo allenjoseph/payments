@@ -13,24 +13,11 @@ import { ICard } from '../domain/card.interface';
 export class CardService {
     private name: string = '/cards/';
 
-    getAll(): Observable<any> {
+    getAll(): Observable<ICard[]> {
         return from(getValue(this.path)).pipe(
-            map(this.formatGetAllResponse),
-            flatMap(cards =>
-                Observable.create(observer => {
-                    cards.forEach(card => observer.next(card));
-                    observer.complete();
-                })
-            ),
-            mergeMap(({ id, value }) =>
-                from(this.getPayments(id)).pipe(
-                    map(data => ({
-                        ...value,
-                        cardId: id,
-                        payments: R.values(data.value),
-                    }))
-                )
-            ),
+            map(this.formatCards),
+            flatMap(cardsData => from(cardsData)),
+            mergeMap((cardsData: any) => this.getCardPayments(cardsData)),
             toArray()
         );
     }
@@ -46,10 +33,6 @@ export class CardService {
         return of(card);
     }
 
-    getPayments(cardId: string) {
-        return getValue(`/payments/${cardId}`);
-    }
-
     get path(): string {
         return this.name + this.userId;
     }
@@ -58,10 +41,29 @@ export class CardService {
         return getString('userId');
     }
 
-    private formatGetAllResponse(result: any) {
-        return R.keys(result.value).map(id => ({
+    private getCardPayments(cardsData: any): Observable<any> {
+        return from(getValue(`/payments/${cardsData.id}`)).pipe(
+            map(paymentsResponse =>
+                this.formatCardWithPayments(cardsData, paymentsResponse)
+            )
+        );
+    }
+
+    private formatCards(cardsResponse: any) {
+        return R.keys(cardsResponse.value).map(id => ({
             id,
-            value: result.value[id],
+            value: cardsResponse.value[id],
         }));
+    }
+
+    private formatCardWithPayments(cardData: any, paymentsResponse: any) {
+        return {
+            ...cardData.value,
+            cardId: cardData.id,
+            payments: R.values(paymentsResponse.value),
+            totalAmount: R.sum(
+                R.values(paymentsResponse.value).map(o => o.amount)
+            ),
+        };
     }
 }

@@ -1,33 +1,18 @@
 import { Injectable } from '@angular/core';
-import * as R from 'ramda';
 
 import { IHomePresenterInput } from './home.presenter.input';
-import { IHomePresenterOutput } from './home.presenter.output';
 import { HomeInteractor } from '../interactor/home.interactor';
-import { IOutputBoundary } from '../interactor/output.boundary';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
+import { Observable } from 'rxjs';
+import { sum, map } from 'ramda';
 
 @Injectable()
-export class HomePresenter implements IHomePresenterInput, IOutputBoundary {
-    private view: IHomePresenterOutput;
-
+export class HomePresenter {
     constructor(private interactor: HomeInteractor) {}
 
-    init(component: any): void {
-        this.view = component;
-        this.interactor.init(this);
-    }
-
-    getCards(): void {
-        this.interactor.getCards();
-    }
-
-    onGetCards(cards: ICard[]): void {
-        cards.forEach(
-            card => (card.totalAmount = R.sum(card.payments.map(o => o.amount)))
-        );
-        this.view.setCards(cards);
+    getCards(): Observable<ICard[]> {
+        return this.interactor.getCards();
     }
 
     addCard(card: ICard): void {
@@ -36,5 +21,9 @@ export class HomePresenter implements IHomePresenterInput, IOutputBoundary {
 
     addPayment(card: ICard, payment: IPayment): void {
         this.interactor.addPayment(card, payment);
+    }
+
+    getTotalAmount(cards: ICard[]): number {
+        return sum(map(card => card.totalAmount, cards));
     }
 }

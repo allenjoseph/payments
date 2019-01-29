@@ -19,6 +19,12 @@ export class PaymentService {
         );
     }
 
+    getByCard(cardId: string): Observable<any> {
+        return from(getValue(`/payments/${cardId}`)).pipe(
+            map(response => R.values(response.value))
+        );
+    }
+
     add(payment: IPayment): Observable<any> {
         payment.createdAt = ServerValue.TIMESTAMP;
         return of(push(this.path, payment));

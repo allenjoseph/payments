@@ -1,0 +1,13 @@
+.payment-list-header {
+  font-size: 12;
+  padding: 8;
+  font-weight: bold;
+  background-color: #fafafa;
+  border-bottom-width: 0.5;
+  border-color: #d4d4d7;
+}
+.payment-list-item {
+  border-bottom-width: 0.5;
+  border-color: #d4d4d7;
+  padding: 16;
+}

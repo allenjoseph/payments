@@ -3,14 +3,25 @@
 </ActionBar>
 
 <GridLayout>
-    <ListView [items]="payments | async" class="list-group">
-        <ng-template let-item="item" let-i="index">
-            <GridLayout class="list-group-item" columns="*, auto" rows="auto, auto">
-                <Label row="0" col="0" [text]="item.description"></Label>
-                <Label row="0" col="1" [text]="item.amount | number:'1.2-2'"></Label>
-                <Label row="1" col="0" colSpan="2" [text]="item.createdAt | date:'longDate'"
-                    class="text--smaller"></Label>
+    <RadListView [items]="payments" class="payment-list">
+        <ng-template tkListItemTemplate let-item="item">
+            <GridLayout>
+                <Label [text]="item.title" textWrap="true" class="payment-list-header"
+                    visibility="{{ item.isHeader ? 'visible' : 'collapsed' }}"></Label>
+
+                <GridLayout columns="*, auto" rows="auto, auto" class="payment-list-item"
+                    visibility="{{ !item.isHeader ? 'visible' : 'collapsed' }}">
+                    <Label row="0" col="0" [text]="item.description"></Label>
+                    <Label row="0" col="1" [text]="item.amount | number:'1.2-2'"></Label>
+                    <Label row="1" col="0" colSpan="2"
+                        [text]="item.createdAt | date:'longDate'"
+                        class="text--smaller"></Label>
+                </GridLayout>
             </GridLayout>
         </ng-template>
-    </ListView>
+    </RadListView>
+    <ActivityIndicator
+        #activityIndicator
+        [busy]="isBusy"
+        class="activity-indicator"></ActivityIndicator>
 </GridLayout>
