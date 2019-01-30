@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { flatMap } from 'rxjs/operators';
-import { IPayment } from '~/app/domain/payment.interface';
+
 import { PaymentService } from '~/app/service/payment.service';
-import * as R from 'ramda';
-import * as moment from 'moment';
+import { PaymentListPresenter } from '../presenter/payment-list.presenter';
 
 @Component({
     moduleId: module.id,
@@ -13,11 +12,12 @@ import * as moment from 'moment';
     styleUrls: ['./payment-list.component.css'],
 })
 export class PaymentListComponent implements OnInit {
-    payments: IPayment[];
+    listViewData: any[];
     isBusy: boolean;
 
     constructor(
         private route: ActivatedRoute,
+        private presenter: PaymentListPresenter,
         private paymentService: PaymentService
     ) {}
 
@@ -30,56 +30,12 @@ export class PaymentListComponent implements OnInit {
                 )
             )
             .subscribe(payments => {
-                this.payments = this.formatPayments(payments);
+                this.listViewData = this.presenter.formatToListView(payments);
                 this.isBusy = false;
             });
     }
 
-    private formatPayments(payments: IPayment[]) {
-        const paymentsWithHeaders = [];
-        const paymentsSortedAndGrouped = R.compose(
-            this.groupByCreation,
-            this.sortByCreation
-        )(payments);
-
-        R.forEach(groupKey => {
-            paymentsWithHeaders.push({
-                isHeader: true,
-                title: groupKey,
-            });
-            paymentsWithHeaders.push(...paymentsSortedAndGrouped[groupKey]);
-        }, R.keys(paymentsSortedAndGrouped));
-
-        return paymentsWithHeaders;
-    }
-
-    private sortByCreation(payments: IPayment[]) {
-        return R.sort(R.prop('createdAt'))(payments);
-    }
-
-    private groupByCreation(payments: IPayment[]) {
-        const threeWeeksAgo = moment()
-            .startOf('isoWeek')
-            .subtract(3, 'week');
-        const twoWeeksAgo = moment()
-            .startOf('isoWeek')
-            .subtract(2, 'week');
-        const oneWeekAgo = moment()
-            .startOf('isoWeek')
-            .subtract(1, 'week');
-        const firstDayWeek = moment().startOf('isoWeek');
-
-        return R.groupBy(({ createdAt }) => {
-            const date = moment(createdAt);
-            return date.isBefore(threeWeeksAgo)
-                ? 'Anteriores'
-                : date.isBefore(twoWeeksAgo)
-                ? 'Hace 3 semanas'
-                : date.isBefore(oneWeekAgo)
-                ? 'Hace 2 semanas'
-                : date.isBefore(firstDayWeek)
-                ? 'Hace 1 semana'
-                : 'En esta semana';
-        }, payments);
+    private getCardIdParam(params: ParamMap) {
+        return params.get('cardId');
     }
 }

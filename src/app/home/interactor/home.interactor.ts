@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { setString } from 'tns-core-modules/application-settings';
+import { Observable } from 'rxjs';
 
 import { CardService } from '../../service/card.service';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
 import { PaymentService } from '../../service/payment.service';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class HomeInteractor {

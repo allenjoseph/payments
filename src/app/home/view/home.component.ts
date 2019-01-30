@@ -11,13 +11,13 @@ import {
 } from 'nativescript-angular/modal-dialog';
 import { RadListView, ListViewEventData } from 'nativescript-ui-listview';
 import { View } from 'tns-core-modules/ui/page';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
 import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
 import { HomePresenter } from '../presenter/home.presenter';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
-import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
     moduleId: module.id,

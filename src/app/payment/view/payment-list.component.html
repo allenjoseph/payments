@@ -3,12 +3,14 @@
 </ActionBar>
 
 <GridLayout>
-    <RadListView [items]="payments" class="payment-list">
+    <RadListView [items]="listViewData" class="payment-list">
         <ng-template tkListItemTemplate let-item="item">
             <GridLayout>
-                <Label [text]="item.title" textWrap="true" class="payment-list-header"
-                    visibility="{{ item.isHeader ? 'visible' : 'collapsed' }}"></Label>
-
+                <GridLayout rows="*" columns="*,*" class="payment-list-header"
+                    visibility="{{ item.isHeader ? 'visible' : 'collapsed' }}">
+                    <Label row="0" col="0" [text]="item.title"></Label>
+                    <Label row="0" col="1" [text]="item.total" horizontalAlignment="right"></Label>
+                </GridLayout>
                 <GridLayout columns="*, auto" rows="auto, auto" class="payment-list-item"
                     visibility="{{ !item.isHeader ? 'visible' : 'collapsed' }}">
                     <Label row="0" col="0" [text]="item.description"></Label>
