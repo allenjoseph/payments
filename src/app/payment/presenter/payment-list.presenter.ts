@@ -28,7 +28,9 @@ export class PaymentListPresenter {
             });
 
             listViewData.push(
-                ...R.reverse(<any[]>R.sort(R.prop('createdAt'), group.payments))
+                ...R.reverse(<any[]>(
+                    R.sortBy(R.prop('createdAt'), group.payments)
+                ))
             );
         }, groups);
 
@@ -51,7 +53,7 @@ export class PaymentListPresenter {
 
         R.forEach(payment => {
             const date = moment(payment.createdAt);
-            (date.isAfter(firstDayWeek)
+            const group = date.isAfter(firstDayWeek)
                 ? groups[0]
                 : date.isAfter(oneWeekAgo)
                 ? groups[1]
@@ -59,8 +61,8 @@ export class PaymentListPresenter {
                 ? groups[2]
                 : date.isAfter(threeWeeksAgo)
                 ? groups[3]
-                : groups[4]
-            ).payments.push(payment);
+                : groups[4];
+            group.payments.push(payment);
         }, payments);
 
         return groups;

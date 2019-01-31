@@ -1,14 +1,10 @@
 import {
     Component,
     OnInit,
-    ViewContainerRef,
     ViewChild,
     ElementRef,
+    ViewContainerRef,
 } from '@angular/core';
-import {
-    ModalDialogOptions,
-    ModalDialogService,
-} from 'nativescript-angular/modal-dialog';
 import { RadListView, ListViewEventData } from 'nativescript-ui-listview';
 import { View } from 'tns-core-modules/ui/page';
 import { RouterExtensions } from 'nativescript-angular/router';
@@ -18,6 +14,7 @@ import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.comp
 import { HomePresenter } from '../presenter/home.presenter';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
+import { ModalService } from '~/app/service/modal.service';
 
 @Component({
     moduleId: module.id,
@@ -34,10 +31,10 @@ export class HomeComponent implements OnInit {
     cardsRadListView: RadListView;
 
     constructor(
-        private modalService: ModalDialogService,
-        private viewContainerRef: ViewContainerRef,
+        private modalService: ModalService,
         private presenter: HomePresenter,
-        private router: RouterExtensions
+        private router: RouterExtensions,
+        private viewContainerRef: ViewContainerRef
     ) {}
 
     ngOnInit(): void {
@@ -52,11 +49,15 @@ export class HomeComponent implements OnInit {
 
     onTapCard(card: ICard) {
         this.cardsRadListView.notifySwipeToExecuteFinished();
-        this.showAddPaymentModal(card, this.onCloseAddPayment.bind(this, card));
+        this.modalService
+            .open(ModalAddPaymentComponent, card, this.viewContainerRef)
+            .then(this.onCloseAddPayment.bind(this, card));
     }
 
     onTapAddCard() {
-        this.showAddCardModal({}, this.onCloseAddCard.bind(this));
+        this.modalService
+            .open(ModalAddCardComponent, {}, this.viewContainerRef)
+            .then(this.onCloseAddCard.bind(this));
     }
 
     onSwipeCellStarted(args: ListViewEventData) {
@@ -82,39 +83,25 @@ export class HomeComponent implements OnInit {
         this.totalAmount = this.presenter.getTotalAmount(cards);
     }
 
-    private onCloseAddPayment(card: ICard, payment: IPayment | false): void {
-        if (payment) {
-            this.isBusy = true;
-            this.presenter.addPayment(card, payment);
+    private onCloseAddPayment(card: ICard, payment: IPayment): void {
+        if (!payment) {
+            return;
         }
+        this.isBusy = true;
+        this.presenter.addPayment(card, payment).subscribe(cards => {
+            this.isBusy = false;
+            this.onGetCards(cards);
+        });
     }
 
-    private onCloseAddCard(card: ICard) {
-        if (card) {
-            this.isBusy = true;
-            this.presenter.addCard(card);
+    private onCloseAddCard(card: ICard): void {
+        if (!card) {
+            return;
         }
-    }
-
-    private showAddPaymentModal(context: any, onClose: any): void {
-        const options: ModalDialogOptions = {
-            context,
-            fullscreen: true,
-            viewContainerRef: this.viewContainerRef,
-        };
-        this.modalService
-            .showModal(ModalAddPaymentComponent, options)
-            .then(onClose);
-    }
-
-    private showAddCardModal(context: any, onClose: any): void {
-        const options: ModalDialogOptions = {
-            context,
-            fullscreen: true,
-            viewContainerRef: this.viewContainerRef,
-        };
-        this.modalService
-            .showModal(ModalAddCardComponent, options)
-            .then(onClose);
+        this.isBusy = true;
+        this.presenter.addCard(card).subscribe(cards => {
+            this.isBusy = false;
+            this.onGetCards(cards);
+        });
     }
 }

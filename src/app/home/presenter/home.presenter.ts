@@ -14,12 +14,12 @@ export class HomePresenter {
         return this.interactor.getCards();
     }
 
-    addCard(card: ICard): void {
-        this.interactor.addCard(card);
+    addCard(card: ICard): Observable<ICard[]> {
+        return this.interactor.addCard(card);
     }
 
-    addPayment(card: ICard, payment: IPayment): void {
-        this.interactor.addPayment(card, payment);
+    addPayment(card: ICard, payment: IPayment): Observable<ICard[]> {
+        return this.interactor.addPayment(card, payment);
     }
 
     getTotalAmount(cards: ICard[]): number {

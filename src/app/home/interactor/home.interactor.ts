@@ -6,6 +6,7 @@ import { CardService } from '../../service/card.service';
 import { ICard } from '../../domain/card.interface';
 import { IPayment } from '../../domain/payment.interface';
 import { PaymentService } from '../../service/payment.service';
+import { flatMap } from 'rxjs/operators';
 
 @Injectable()
 export class HomeInteractor {
@@ -18,12 +19,16 @@ export class HomeInteractor {
         return this.cardService.getAll();
     }
 
-    addCard(card: ICard): void {
-        this.cardService.add(card).subscribe(() => this.getCards());
+    addCard(card: ICard): Observable<ICard[]> {
+        return this.cardService
+            .add(card)
+            .pipe(flatMap(this.getCards.bind(this)));
     }
 
-    addPayment(card: ICard, payment: IPayment): void {
+    addPayment(card: ICard, payment: IPayment): Observable<ICard[]> {
         setString('cardId', card.cardId);
-        this.paymentService.add(payment).subscribe(() => this.getCards());
+        return this.paymentService
+            .add(payment)
+            .pipe(flatMap(this.getCards.bind(this)));
     }
 }
