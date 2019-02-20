@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
 import { action } from 'tns-core-modules/ui/dialogs';
-import { ICard } from '../../domain/card.interface';
+import { ICard } from '../../data/entities/card.interface';
 
 @Component({
     moduleId: module.id,

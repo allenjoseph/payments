@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { sum, map } from 'ramda';
 
 import { HomeInteractor } from '../interactor/home.interactor';
-import { ICard } from '../../domain/card.interface';
-import { IPayment } from '../../domain/payment.interface';
+import { ICard } from '../../data/entities/card.interface';
+import { IPayment } from '../../data/entities/payment.interface';
 
 @Injectable()
 export class HomePresenter {

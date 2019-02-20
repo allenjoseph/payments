@@ -14,7 +14,8 @@ const routes: Routes = [
     },
     {
         path: 'payments',
-        loadChildren: '~/app/payment/payment.module#PaymentModule',
+        loadChildren:
+            '~/app/payment-list/payment-list.module#PaymentListModule',
         canLoad: [AuthGuard],
     },
 ];

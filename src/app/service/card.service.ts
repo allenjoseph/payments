@@ -5,7 +5,7 @@ import { getString } from 'tns-core-modules/application-settings';
 import { map, flatMap, mergeMap, toArray } from 'rxjs/operators';
 import * as R from 'ramda';
 
-import { ICard } from '../domain/card.interface';
+import { ICard } from '../data/entities/card.interface';
 
 @Injectable({
     providedIn: 'root',

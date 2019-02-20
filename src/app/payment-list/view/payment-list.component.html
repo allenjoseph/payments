@@ -1,9 +1,14 @@
 <ActionBar class="action-bar">
     <Label class="action-bar-title" text="PAYMENTS"></Label>
+    <ActionItem (tap)="tapFilterPayments()" ios.position="right">
+        <Label text="&#xe901;"
+            class="icon text--large card-list__right-icon">
+        </Label>
+    </ActionItem>
 </ActionBar>
 
 <GridLayout>
-    <RadListView [items]="listViewData" class="payment-list">
+    <RadListView id="paymentRadListView" [items]="listViewData" class="payment-list">
         <ng-template tkListItemTemplate let-item="item">
             <GridLayout>
                 <GridLayout rows="*" columns="*,*" class="payment-list-header"

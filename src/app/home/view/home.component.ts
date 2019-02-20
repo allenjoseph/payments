@@ -12,8 +12,8 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
 import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
 import { HomePresenter } from '../presenter/home.presenter';
-import { ICard } from '../../domain/card.interface';
-import { IPayment } from '../../domain/payment.interface';
+import { ICard } from '../../data/entities/card.interface';
+import { IPayment } from '../../data/entities/payment.interface';
 import { ModalService } from '~/app/service/modal.service';
 
 @Component({
