@@ -5,8 +5,6 @@ import { PaymentListRoutingModule } from './payment-list-routing.module';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { PaymentListComponent } from './view/payment-list.component';
 import { PaymentListPresenter } from './presenter/payment-list.presenter';
-import { PaymentRepository } from '../data/repositories/payment.repository';
-import { FirebaseDataSource } from '../data/datasource/firebase.datasource';
 import { ListPaymentsUseCase } from '../domain/use-cases/list-payments.usecase';
 
 @NgModule({
@@ -16,18 +14,7 @@ import { ListPaymentsUseCase } from '../domain/use-cases/list-payments.usecase';
         PaymentListRoutingModule,
     ],
     declarations: [PaymentListComponent],
-    providers: [
-        PaymentListPresenter,
-        {
-            provide: FirebaseDataSource,
-            useFactory: () => new FirebaseDataSource('payments'),
-        },
-        {
-            provide: PaymentRepository,
-            useFactory: () => new PaymentRepository(null),
-        },
-        ListPaymentsUseCase,
-    ],
+    providers: [PaymentListPresenter, ListPaymentsUseCase],
     schemas: [NO_ERRORS_SCHEMA],
 })
 export class PaymentListModule {}

@@ -1,6 +1,6 @@
 export interface IDataSource {
-    getById<T>(id: number | string): Promise<T>;
-    list<T>(): Promise<T[]>;
-    createOrUpdate<T>(item: T): Promise<T>;
-    delete<T>(item: T): Promise<T>;
+    getById(id: number | string): Promise<any>;
+    list(): Promise<any>;
+    createOrUpdate(item: any): Promise<any>;
+    delete(item: any): Promise<any>;
 }

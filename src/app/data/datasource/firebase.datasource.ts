@@ -6,37 +6,37 @@ import {
     setValue,
 } from 'nativescript-plugin-firebase';
 
-import { BaseDataSource } from './base.datasource';
+import { IDataSource } from './datasource.interface';
 
-export class FirebaseDataSource extends BaseDataSource {
-    private resource: string;
+export class FirebaseDataSource implements IDataSource {
+    private ref: string;
 
-    constructor(resource: string) {
-        super();
-        this.resource = resource;
+    constructor(reference: string) {
+        this.ref = reference;
     }
 
-    getById<T>(id: string | number): Promise<T> {
-        return getValue(`/${this.resource}/${id}`);
+    getById(id: string | number): Promise<any> {
+        return getValue(`/${this.ref}/${id}`);
     }
 
-    list<T>(): Promise<T[]> {
-        return getValue(`/${this.resource}/`);
+    list(): Promise<any> {
+        return getValue(`/${this.ref}/`);
     }
 
-    async createOrUpdate<T>(item: T): Promise<T> {
-        if (item['id']) {
-            return setValue(`/${this.resource}/ ${item['id']}`, item);
+    async createOrUpdate(item: any): Promise<any> {
+        if (item.id) {
+            return setValue(`/${this.ref}/${item.id}`, item);
         }
-        const { key } = await push(this.resource, {
-            ...item,
-            createdAt: ServerValue.TIMESTAMP,
-        });
-
-        return this.getById(key);
+        try {
+            item.createdAt = ServerValue.TIMESTAMP;
+            const result = await push(this.ref, item);
+            return this.getById(result.key);
+        } catch (err) {
+            return Promise.resolve(null);
+        }
     }
 
-    delete<T>(item: T): Promise<T> {
-        return remove(`/${this.resource}/ ${item['id']}`);
+    delete(item: any): Promise<any> {
+        return remove(`/${this.ref}/${item.id}`);
     }
 }

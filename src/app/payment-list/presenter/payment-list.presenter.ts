@@ -34,7 +34,10 @@ export class PaymentListPresenter {
             .pipe(map(this.formatPaymentList.bind(this)))
             .subscribe(data => this.view.setPayments(data));
 
-        this.listPayments.execute();
+        this.listPayments
+            .execute()
+            .then(console.log)
+            .catch(console.log);
     }
 
     formatPaymentList(payments: IPayment[]): any[] {
