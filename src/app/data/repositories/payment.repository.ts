@@ -1,16 +1,16 @@
+import { Injectable, Inject } from '@angular/core';
+
 import { IPayment } from '../entities/payment.interface';
 import { IDataSource } from '../datasource/datasource.interface';
+import { DataSourceProvider } from '../datasource/firebase.datasource';
 
 export interface IPaymentRepository {
     getAll(): Promise<IPayment[]>;
 }
 
+@Injectable()
 export class PaymentRepository implements IPaymentRepository {
-    private dataSource: IDataSource;
-
-    constructor(dataSource: IDataSource) {
-        this.dataSource = dataSource;
-    }
+    constructor(@Inject(DataSourceProvider) private dataSource: IDataSource) {}
 
     getAll(): Promise<IPayment[]> {
         return this.dataSource.list();

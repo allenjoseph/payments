@@ -5,22 +5,19 @@ import {
     remove,
     setValue,
 } from 'nativescript-plugin-firebase';
+import { getString } from 'tns-core-modules/application-settings/application-settings';
+import { InjectionToken } from '@angular/core';
+import * as R from 'ramda';
 
 import { IDataSource } from './datasource.interface';
 
 export class FirebaseDataSource implements IDataSource {
-    private ref: string;
-
-    constructor(reference: string) {
-        this.ref = reference;
-    }
-
     getById(id: string | number): Promise<any> {
         return getValue(`/${this.ref}/${id}`);
     }
 
     list(): Promise<any> {
-        return getValue(`/${this.ref}/`);
+        return getValue(`/${this.ref}/`).then(res => R.values(res.value));
     }
 
     async createOrUpdate(item: any): Promise<any> {
@@ -39,4 +36,16 @@ export class FirebaseDataSource implements IDataSource {
     delete(item: any): Promise<any> {
         return remove(`/${this.ref}/${item.id}`);
     }
+
+    get ref() {
+        return getString('firebase.db.ref');
+    }
 }
+
+export const DataSourceProvider = new InjectionToken(
+    'DataSource provider for angular',
+    {
+        providedIn: 'root',
+        factory: () => new FirebaseDataSource(),
+    }
+);
