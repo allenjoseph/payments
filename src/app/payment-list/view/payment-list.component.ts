@@ -3,6 +3,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { action } from 'tns-core-modules/ui/dialogs/dialogs';
 import { RadListView } from 'nativescript-ui-listview';
+import {
+    IPayment,
+    IPaymentHeader,
+} from '~/app/data/entities/payment.interface';
 
 import { PaymentListPresenter } from '../presenter/payment-list.presenter';
 
@@ -16,7 +20,7 @@ export class PaymentListComponent implements OnInit {
     private cardId: string;
 
     paymentRadListView: RadListView;
-    listViewData: any[];
+    listViewData: (IPayment | IPaymentHeader)[];
     isBusy: boolean;
 
     constructor(
@@ -39,7 +43,7 @@ export class PaymentListComponent implements OnInit {
         });
     }
 
-    setPayments(payments: any[]): void {
+    setPayments(payments: (IPayment | IPaymentHeader)[]): void {
         this.listViewData = payments;
     }
 

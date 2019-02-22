@@ -8,7 +8,9 @@ export interface IPaymentRepository {
     getAll(): Promise<IPayment[]>;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class PaymentRepository implements IPaymentRepository {
     constructor(@Inject(DataSourceProvider) private dataSource: IDataSource) {}
 

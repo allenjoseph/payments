@@ -6,7 +6,6 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { PaymentListComponent } from './view/payment-list.component';
 import { PaymentListPresenter } from './presenter/payment-list.presenter';
 import { ListPaymentsUseCase } from '../domain/use-cases/list-payments.usecase';
-import { PaymentRepository } from '../data/repositories/payment.repository';
 
 @NgModule({
     imports: [
@@ -15,7 +14,7 @@ import { PaymentRepository } from '../data/repositories/payment.repository';
         PaymentListRoutingModule,
     ],
     declarations: [PaymentListComponent],
-    providers: [PaymentRepository, ListPaymentsUseCase, PaymentListPresenter],
+    providers: [ListPaymentsUseCase, PaymentListPresenter],
     schemas: [NO_ERRORS_SCHEMA],
 })
 export class PaymentListModule {}

@@ -7,12 +7,11 @@ import {
     PaymentRepository,
     IPaymentRepository,
 } from '~/app/data/repositories/payment.repository';
-import { IPayment } from '~/app/data/entities/payment.interface';
-
-interface IPaymentGroup {
-    header: string;
-    payments: IPayment[];
-}
+import {
+    IPayment,
+    IPaymentHeader,
+    IPaymentGroup,
+} from '~/app/data/entities/payment.interface';
 
 @Injectable()
 export class ListPaymentsUseCase implements IUseCase {
@@ -20,7 +19,7 @@ export class ListPaymentsUseCase implements IUseCase {
         @Inject(PaymentRepository) private repository: IPaymentRepository
     ) {}
 
-    execute(): Promise<IPayment[]> {
+    execute(): Promise<(IPayment | IPaymentHeader)[]> {
         return this.repository.getAll().then(
             R.compose(
                 this.sortPaymentGroups,
@@ -29,7 +28,9 @@ export class ListPaymentsUseCase implements IUseCase {
         );
     }
 
-    private sortPaymentGroups(groups: IPaymentGroup[]): any[] {
+    private sortPaymentGroups(
+        groups: IPaymentGroup[]
+    ): (IPayment | IPaymentHeader)[] {
         const listViewData = [];
         R.forEach(group => {
             listViewData.push({

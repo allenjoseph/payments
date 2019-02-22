@@ -42,6 +42,10 @@ export class FirebaseDataSource implements IDataSource {
     }
 }
 
+/**
+ * Create a provider to inject DataSourceProvider instance
+ * of FirebaseDataSource or any other data source.
+ */
 export const DataSourceProvider = new InjectionToken(
     'DataSource provider for angular',
     {
