@@ -1,7 +1,7 @@
 export interface IPayment {
     amount: number;
     description: string;
-    createdAt?: any;
+    createdAt: number;
 }
 
 export interface IPaymentGroup {

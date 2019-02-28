@@ -4,20 +4,32 @@ import {
     ServerValue,
     remove,
     setValue,
+    query,
+    QueryOrderByType,
+    QueryLimitType,
+    QueryOptions,
 } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings/application-settings';
 import { InjectionToken } from '@angular/core';
 import * as R from 'ramda';
 
-import { IDataSource } from './datasource.interface';
+import { IDataSource, IQueryOptions } from './datasource.interface';
 
 export class FirebaseDataSource implements IDataSource {
     getById(id: string | number): Promise<any> {
         return getValue(`/${this.ref}/${id}`);
     }
 
-    list(): Promise<any> {
+    async list(): Promise<any> {
         return getValue(`/${this.ref}/`).then(res => R.values(res.value));
+    }
+
+    async query(options: IQueryOptions): Promise<any> {
+        return query(
+            null,
+            `/${this.ref}/`,
+            this.generateQueryOptions(options)
+        ).then(res => R.values(res.value));
     }
 
     async createOrUpdate(item: any): Promise<any> {
@@ -40,10 +52,29 @@ export class FirebaseDataSource implements IDataSource {
     get ref() {
         return getString('firebase.db.ref');
     }
+
+    private generateQueryOptions(options: IQueryOptions) {
+        const queryOptions = <QueryOptions>{ singleEvent: true };
+        if (options.orderBy) {
+            queryOptions.orderBy = {
+                type: QueryOrderByType.CHILD,
+                value: options.orderBy,
+            };
+        }
+        if (options.limitFirst || options.limitLast) {
+            queryOptions.limit = {
+                type: options.limitFirst
+                    ? QueryLimitType.FIRST
+                    : QueryLimitType.LAST,
+                value: options.limitFirst || options.limitLast,
+            };
+        }
+        return queryOptions;
+    }
 }
 
 /**
- * Create a provider to inject DataSourceProvider instance
+ * A provider to inject the data source instance
  * of FirebaseDataSource or any other data source.
  */
 export const DataSourceProvider = new InjectionToken(

@@ -12,6 +12,7 @@ import {
     IPaymentHeader,
     IPaymentGroup,
 } from '~/app/data/entities/payment.interface';
+import { IQueryOptions } from '~/app/data/datasource/datasource.interface';
 
 @Injectable()
 export class ListPaymentsUseCase implements IUseCase {
@@ -20,7 +21,12 @@ export class ListPaymentsUseCase implements IUseCase {
     ) {}
 
     execute(): Promise<(IPayment | IPaymentHeader)[]> {
-        return this.repository.getAll().then(
+        const options = <IQueryOptions>{
+            orderBy: 'createdAt',
+            limitLast: 50,
+        };
+
+        return this.repository.getAll(options).then(
             R.compose(
                 this.sortPaymentGroups,
                 this.groupByCreation

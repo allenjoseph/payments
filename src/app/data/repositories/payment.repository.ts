@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 
 import { IPayment } from '../entities/payment.interface';
-import { IDataSource } from '../datasource/datasource.interface';
+import { IDataSource, IQueryOptions } from '../datasource/datasource.interface';
 import { DataSourceProvider } from '../datasource/firebase.datasource';
 
 export interface IPaymentRepository {
-    getAll(): Promise<IPayment[]>;
+    getAll(query?: IQueryOptions): Promise<IPayment[]>;
 }
 
 @Injectable({
@@ -14,7 +14,7 @@ export interface IPaymentRepository {
 export class PaymentRepository implements IPaymentRepository {
     constructor(@Inject(DataSourceProvider) private dataSource: IDataSource) {}
 
-    getAll(): Promise<IPayment[]> {
-        return this.dataSource.list();
+    getAll(query?: IQueryOptions): Promise<IPayment[]> {
+        return query ? this.dataSource.query(query) : this.dataSource.list();
     }
 }
