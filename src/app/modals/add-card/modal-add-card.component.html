@@ -22,6 +22,10 @@
                 </StackLayout>
                 <TextField #description row="1" hint="Description" class="card-form__item card-form__footer text--normal"></TextField>
             </GridLayout>
+            <GridLayout rows="auto" columns="auto, *" class="card-form card-form__item">
+                <Label col="0" text="Due Day" class="card-form__label text--small"></Label>
+                <TextView col="1" hint="01" [text]="dueDay" class="text--normal" editable="false" horizontalAlignment="right" (tap)="onTapDueDay()"></TextView>
+            </GridLayout>
         </StackLayout>
         <!-- ACTIONS BUTTONS -->
         <Button row="3" class="button" text="SAVE" (tap)="save(bank.text, description.text)"></Button>

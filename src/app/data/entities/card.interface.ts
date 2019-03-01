@@ -3,6 +3,7 @@ export interface ICard {
     type: string;
     bank: string;
     description: string;
+    dueDate: number;
     userId?: string;
     createdAt?: any;
 

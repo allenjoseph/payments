@@ -13,13 +13,20 @@ export class ModalAddCardComponent {
     constructor(private _params: ModalDialogParams) {}
     brand: string;
     type: string;
+    dueDay: string;
 
     close(): void {
         this._params.closeCallback(false);
     }
 
     save(bank: string, description: string): void {
-        if (!bank || !description || !this.brand || !this.type) {
+        if (
+            !bank ||
+            !description ||
+            !this.brand ||
+            !this.type ||
+            !this.dueDay
+        ) {
             return;
         }
         const newCard: ICard = {
@@ -27,6 +34,7 @@ export class ModalAddCardComponent {
             description,
             brand: this.brand,
             type: this.type,
+            dueDate: parseInt(this.dueDay, 10),
         };
         this._params.closeCallback(newCard);
     }
@@ -45,5 +53,17 @@ export class ModalAddCardComponent {
             actions: ['CRÉDITO', 'DÉBITO'],
         };
         action(options).then(result => (this.type = result));
+    }
+
+    onTapDueDay() {
+        const days = [];
+        for (let i = 1; i <= 31; i++) {
+            days.push(`${i < 10 ? '0' : ''}${i}`);
+        }
+        const options = {
+            title: 'Select a type',
+            actions: days,
+        };
+        action(options).then(result => (this.dueDay = result));
     }
 }

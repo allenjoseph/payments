@@ -4,6 +4,7 @@ import { getValue, push, ServerValue } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings';
 import { map, flatMap, mergeMap, toArray } from 'rxjs/operators';
 import * as R from 'ramda';
+import * as moment from 'moment';
 
 import { ICard } from '../data/entities/card.interface';
 
@@ -57,12 +58,25 @@ export class CardService {
     }
 
     private formatCardWithPayments(cardData: any, paymentsResponse: any) {
+        const card: ICard = cardData.value;
+
+        const dueDay = card.dueDate || 1;
+        let endDate = moment().date(dueDay);
+        if (moment().date() > dueDay) {
+            endDate = endDate.add(1, 'M');
+        }
+        const startDate = moment(endDate).subtract(1, 'M');
+
         return {
-            ...cardData.value,
+            ...card,
             cardId: cardData.id,
             payments: R.values(paymentsResponse.value),
             totalAmount: R.sum(
-                R.values(paymentsResponse.value).map(o => o.amount)
+                R.filter(
+                    item =>
+                        moment(item.createdAt).isBetween(startDate, endDate),
+                    R.values(paymentsResponse.value)
+                ).map(o => o.amount)
             ),
         };
     }
