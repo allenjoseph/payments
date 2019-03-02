@@ -31,8 +31,9 @@ export class AuthService {
                 type: firebase.LoginType.PASSWORD,
                 passwordOptions: user,
             })
-            .then(() => this.router.navigate(['/home'], { clearHistory: true }))
-            .catch(console.log);
+            .then(() =>
+                this.router.navigate(['/home'], { clearHistory: true })
+            );
     }
 
     private initAuth() {

@@ -22,6 +22,7 @@
                 returnKeyType="done"
                 class="login-form__input text--normal"></TextField>
         </GridLayout>
+        <Label text="Wrong user or password :O" [visibility]="isLabelErrorVisible ? 'visible' : 'collapsed'" class="text-danger text--smaller"></Label>
         <Button class="button button-outline" text="LOGIN" (tap)="onTapLogin(email.text, password.text)" marginTop="8"></Button>
     </StackLayout>
     <ActivityIndicator
