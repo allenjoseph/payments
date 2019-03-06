@@ -20,6 +20,11 @@ refer to http://docs.nativescript.org/ui/theme.
   color: #fff;
 }
 
+.action-item__right-icon {
+  padding-right: 8;
+  color: #ffffff;
+}
+
 .page {
   background-color: #fafafa;
   padding: 12 16;
