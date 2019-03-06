@@ -1,8 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { RouterExtensions } from 'nativescript-angular/router';
-import { Subscription } from 'rxjs';
-import { User } from 'nativescript-plugin-firebase';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Component } from '@angular/core';
 
 import { AuthService } from '~/app/service/auth.service';
 
@@ -12,46 +8,25 @@ import { AuthService } from '~/app/service/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
-    isBusy = true;
-    authSuscription: Subscription;
+export class LoginComponent {
+    isBusy: boolean;
     isLabelErrorVisible: boolean = false;
 
-    constructor(
-        private router: RouterExtensions,
-        private authService: AuthService
-    ) {}
-
-    ngOnInit(): void {
-        this.authSuscription = this.authService.user$.subscribe(
-            this.onChangeUser.bind(this)
-        );
-    }
-    ngOnDestroy(): void {
-        this.authSuscription.unsubscribe();
-    }
-
-    ngAfterViewInit(): void {
-        // hack to update ActivityIndicator
-        setTimeout(() => (this.isBusy = this.isBusy));
-    }
+    constructor(private authService: AuthService) {}
 
     onTapLogin(email: string, password: string) {
-        this.isLabelErrorVisible = false;
         this.isBusy = true;
+        this.isLabelErrorVisible = false;
+        this.login({ email, password });
+    }
+
+    private login(user: any) {
         this.authService
-            .login({ email, password })
+            .login(user)
             .then(() => (this.isBusy = false))
             .catch(() => {
                 this.isBusy = false;
                 this.isLabelErrorVisible = true;
             });
-    }
-
-    private onChangeUser(user: User): void {
-        this.isBusy = false;
-        if (user) {
-            this.router.navigate(['/home'], { clearHistory: true });
-        }
     }
 }

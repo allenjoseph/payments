@@ -78,6 +78,10 @@ export class HomeComponent implements OnInit {
             .then(() => (this.isBusy = false));
     }
 
+    onTapLogout() {
+        this.presenter.logout();
+    }
+
     private onGetCards(cards: ICard[]): void {
         this.cards = cards;
         this.totalAmount = this.presenter.getTotalAmount(cards);
