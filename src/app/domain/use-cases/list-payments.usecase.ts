@@ -2,11 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import * as moment from 'moment';
 import * as R from 'ramda';
 
-import { IUseCase } from './usecase.interface';
-import {
-    PaymentRepository,
-    IPaymentRepository,
-} from '~/app/data/repositories/payment.repository';
+import { UseCase } from './usecase.interface';
+import { PaymentRepository } from '~/app/data/repositories/payment.repository';
 import {
     IPayment,
     IPaymentHeader,
@@ -15,10 +12,8 @@ import {
 import { IQueryOptions } from '~/app/data/datasource/datasource.interface';
 
 @Injectable()
-export class ListPaymentsUseCase implements IUseCase {
-    constructor(
-        @Inject(PaymentRepository) private repository: IPaymentRepository
-    ) {}
+export class ListPaymentsUseCase implements UseCase {
+    constructor(private repository: PaymentRepository) {}
 
     execute(): Promise<(IPayment | IPaymentHeader)[]> {
         const options = <IQueryOptions>{

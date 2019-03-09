@@ -1,3 +1,3 @@
-export interface IUseCase {
+export interface UseCase {
     execute(): void;
 }

@@ -13,9 +13,9 @@ import { getString } from 'tns-core-modules/application-settings/application-set
 import { InjectionToken } from '@angular/core';
 import * as R from 'ramda';
 
-import { IDataSource, IQueryOptions } from './datasource.interface';
+import { DataSource, IQueryOptions } from './datasource.interface';
 
-export class FirebaseDataSource implements IDataSource {
+export class FirebaseDataSource implements DataSource {
     getById(id: string | number): Promise<any> {
         return getValue(`/${this.ref}/${id}`);
     }

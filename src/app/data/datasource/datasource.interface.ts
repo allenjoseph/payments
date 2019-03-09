@@ -1,4 +1,4 @@
-export interface IDataSource {
+export interface DataSource {
     getById(id: number | string): Promise<any>;
     list(): Promise<any>;
     createOrUpdate(item: any): Promise<any>;
