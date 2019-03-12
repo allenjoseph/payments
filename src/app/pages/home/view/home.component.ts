@@ -9,12 +9,12 @@ import { RadListView, ListViewEventData } from 'nativescript-ui-listview';
 import { View } from 'tns-core-modules/ui/page';
 import { RouterExtensions } from 'nativescript-angular/router';
 
-import { ModalAddPaymentComponent } from '../../modals/add-payment/modal-add-payment.component';
-import { ModalAddCardComponent } from '../../modals/add-card/modal-add-card.component';
+import { ModalAddPaymentComponent } from '~/app/modals/add-payment/modal-add-payment.component';
+import { ModalAddCardComponent } from '~/app/modals/add-card/modal-add-card.component';
 import { HomePresenter } from '../presenter/home.presenter';
-import { ICard } from '../../data/entities/card.interface';
-import { IPayment } from '../../data/entities/payment.interface';
-import { ModalService } from '~/app/service/modal.service';
+import { ICard } from '~/app/data/entities/card.interface';
+import { IPayment } from '~/app/data/entities/payment.interface';
+import { ModalService } from '~/app/services/modal.service';
 
 @Component({
     moduleId: module.id,

@@ -5,7 +5,7 @@ import localeES from '@angular/common/locales/es-PE';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginModule } from './login/login.module';
+import { LoginModule } from './pages/login/login.module';
 
 registerLocaleData(localeES, 'es-PE');
 

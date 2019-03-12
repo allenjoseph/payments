@@ -5,10 +5,10 @@ import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './view/home.component';
-import { ModalAddPaymentComponent } from '../modals/add-payment/modal-add-payment.component';
+import { ModalAddPaymentComponent } from '~/app/modals/add-payment/modal-add-payment.component';
 import { HomeInteractor } from './interactor/home.interactor';
 import { HomePresenter } from './presenter/home.presenter';
-import { ModalAddCardComponent } from '../modals/add-card/modal-add-card.component';
+import { ModalAddCardComponent } from '~/app/modals/add-card/modal-add-card.component';
 
 @NgModule({
     imports: [

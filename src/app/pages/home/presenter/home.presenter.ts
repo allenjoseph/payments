@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { sum, map } from 'ramda';
 
 import { HomeInteractor } from '../interactor/home.interactor';
-import { ICard } from '../../data/entities/card.interface';
-import { IPayment } from '../../data/entities/payment.interface';
-import { AuthService } from '~/app/service/auth.service';
+import { ICard } from '~/app/data/entities/card.interface';
+import { IPayment } from '~/app/data/entities/payment.interface';
+import { AuthService } from '~/app/services/auth.service';
 
 @Injectable()
 export class HomePresenter {
