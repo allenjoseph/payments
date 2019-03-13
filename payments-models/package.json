@@ -1,0 +1,8 @@
+{
+  "name": "@payments/models",
+  "version": "0.0.1",
+  "description": "Models for Payments Application",
+  "author": "Allen Joseph",
+  "license": "ISC",
+  "main": "./index.ts"
+}
