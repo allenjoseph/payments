@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AuthService } from './auth.service';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard implements CanLoad {
     constructor(private authService: AuthService) {}
 

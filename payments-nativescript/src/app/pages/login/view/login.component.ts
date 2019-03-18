@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '~/app/services/auth.service';
+import { AuthService } from '~/app/core/services/auth.service';
 
 @Component({
     moduleId: module.id,

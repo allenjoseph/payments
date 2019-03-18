@@ -14,7 +14,7 @@ import { Payment } from '@payments/models/commons/payment';
 import { ModalAddPaymentComponent } from '~/app/modals/add-payment/modal-add-payment.component';
 import { ModalAddCardComponent } from '~/app/modals/add-card/modal-add-card.component';
 import { HomePresenter } from '../presenter/home.presenter';
-import { ModalService } from '~/app/services/modal.service';
+import { ModalService } from '~/app/core/services/modal.service';
 
 @Component({
     moduleId: module.id,

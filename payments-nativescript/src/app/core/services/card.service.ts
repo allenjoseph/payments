@@ -7,9 +7,7 @@ import * as R from 'ramda';
 import * as moment from 'moment';
 import { Card } from '@payments/models/commons/card';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class CardService {
     private name: string = '/cards/';
 

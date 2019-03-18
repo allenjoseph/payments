@@ -4,9 +4,7 @@ import {
     ModalDialogOptions,
 } from 'nativescript-angular/modal-dialog';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class ModalService {
     constructor(private modalService: ModalDialogService) {}
 

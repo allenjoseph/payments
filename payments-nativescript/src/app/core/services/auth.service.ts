@@ -10,9 +10,7 @@ interface IUserLogin {
     password: string;
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
     private userSubject = new Subject<User>();
 

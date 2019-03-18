@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { sum, map } from 'ramda';
+import { Payment } from '@payments/models/commons/payment';
+import { Card } from '@payments/models/commons/card';
 
 import { HomeInteractor } from '../interactor/home.interactor';
-import { AuthService } from '~/app/services/auth.service';
-import { Card } from '@payments/models/commons/card';
-import { Payment } from '@payments/models/commons/payment';
+import { AuthService } from '~/app/core/services/auth.service';
 
 @Injectable()
 export class HomePresenter {

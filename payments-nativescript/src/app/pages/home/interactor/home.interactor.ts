@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { setString } from 'tns-core-modules/application-settings';
 import { Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
-
-import { CardService } from '~/app/services/card.service';
-import { PaymentService } from '~/app/services/payment.service';
-import { Card } from '@payments/models/commons/card';
 import { Payment } from '@payments/models/commons/payment';
+import { Card } from '@payments/models/commons/card';
+
+import { CardService } from '~/app/core/services/card.service';
+import { PaymentService } from '~/app/core/services/payment.service';
 
 @Injectable()
 export class HomeInteractor {

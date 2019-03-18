@@ -16,7 +16,7 @@ import * as R from 'ramda';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class FirebaseDataSource implements DataSource {
+export class FirebaseService implements DataSource {
     getById(id: string | number): Promise<any> {
         return getValue(`/${this.ref}/${id}`);
     }

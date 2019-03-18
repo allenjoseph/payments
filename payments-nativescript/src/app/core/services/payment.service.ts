@@ -6,9 +6,7 @@ import { map } from 'rxjs/operators';
 import * as R from 'ramda';
 import { Payment } from '@payments/models/commons/payment';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable()
 export class PaymentService {
     private name: string = '/payments/';
 

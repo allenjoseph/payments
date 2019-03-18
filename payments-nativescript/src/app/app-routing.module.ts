@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { LoginComponent } from './pages/login/view/login.component';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuard } from './core/services/auth-guard.service';
 import { LoginGuard } from './pages/login/login-guard.service';
 
 const routes: Routes = [
