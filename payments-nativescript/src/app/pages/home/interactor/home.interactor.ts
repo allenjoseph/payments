@@ -1,31 +1,34 @@
-import { Injectable } from "@angular/core";
-import { setString } from "tns-core-modules/application-settings";
-import { Observable } from "rxjs";
-import { flatMap } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { setString } from 'tns-core-modules/application-settings';
+import { Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 
-import { CardService } from "~/app/services/card.service";
-import { PaymentService } from "~/app/services/payment.service";
-import { Card, Payment } from "@payments/models";
+import { CardService } from '~/app/services/card.service';
+import { PaymentService } from '~/app/services/payment.service';
+import { Card } from '@payments/models/commons/card';
+import { Payment } from '@payments/models/commons/payment';
 
 @Injectable()
 export class HomeInteractor {
-  constructor(
-    private cardService: CardService,
-    private paymentService: PaymentService
-  ) {}
+    constructor(
+        private cardService: CardService,
+        private paymentService: PaymentService
+    ) {}
 
-  getCards(): Observable<Card[]> {
-    return this.cardService.getAll();
-  }
+    getCards(): Observable<Card[]> {
+        return this.cardService.getAll();
+    }
 
-  addCard(card: Card): Observable<Card[]> {
-    return this.cardService.add(card).pipe(flatMap(this.getCards.bind(this)));
-  }
+    addCard(card: Card): Observable<Card[]> {
+        return this.cardService
+            .add(card)
+            .pipe(flatMap(this.getCards.bind(this)));
+    }
 
-  addPayment(card: Card, payment: Payment): Observable<Card[]> {
-    setString("cardId", card.cardId);
-    return this.paymentService
-      .add(payment)
-      .pipe(flatMap(this.getCards.bind(this)));
-  }
+    addPayment(card: Card, payment: Payment): Observable<Card[]> {
+        setString('cardId', card.cardId);
+        return this.paymentService
+            .add(payment)
+            .pipe(flatMap(this.getCards.bind(this)));
+    }
 }

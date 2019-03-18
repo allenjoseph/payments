@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as moment from 'moment';
 import 'moment/locale/es';
 import { setString } from 'tns-core-modules/application-settings/application-settings';
-
-import { ListPaymentsUseCase } from '~/app/domain/use-cases/list-payments.usecase';
+import { ListPaymentsUseCase } from '@payments/domain/use-cases/list-payments.usecase';
+import { UseCase } from '@payments/domain/commons/use-case';
 
 moment.locale('es');
 
@@ -11,7 +11,7 @@ moment.locale('es');
 export class PaymentListPresenter {
     private view: any;
 
-    constructor(private listPayments: ListPaymentsUseCase) {}
+    constructor(@Inject(ListPaymentsUseCase) private listPayments: UseCase) {}
 
     setView(view: any) {
         this.view = view;

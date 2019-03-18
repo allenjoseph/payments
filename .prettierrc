@@ -5,7 +5,7 @@
       "options": { "parser": "json" }
     },
     {
-      "files": "src/**/*.ts",
+      "files": "**/*.ts",
       "options": {
         "trailingComma": "es5",
         "tabWidth": 4,

@@ -10,11 +10,12 @@ import {
     QueryOptions,
 } from 'nativescript-plugin-firebase';
 import { getString } from 'tns-core-modules/application-settings/application-settings';
-import { InjectionToken } from '@angular/core';
+import { ListOptions } from '@payments/repository/commons/list-options';
+import { DataSource } from '@payments/repository/commons/datasource';
 import * as R from 'ramda';
+import { Injectable } from '@angular/core';
 
-import { DataSource, IQueryOptions } from './datasource.interface';
-
+@Injectable()
 export class FirebaseDataSource implements DataSource {
     getById(id: string | number): Promise<any> {
         return getValue(`/${this.ref}/${id}`);
@@ -24,7 +25,7 @@ export class FirebaseDataSource implements DataSource {
         return getValue(`/${this.ref}/`).then(res => R.values(res.value));
     }
 
-    async query(options: IQueryOptions): Promise<any> {
+    async query(options: ListOptions): Promise<any> {
         return query(
             null,
             `/${this.ref}/`,
@@ -53,7 +54,7 @@ export class FirebaseDataSource implements DataSource {
         return getString('firebase.db.ref');
     }
 
-    private generateQueryOptions(options: IQueryOptions) {
+    private generateQueryOptions(options: ListOptions) {
         const queryOptions = <QueryOptions>{ singleEvent: true };
         if (options.orderBy) {
             queryOptions.orderBy = {
@@ -72,15 +73,3 @@ export class FirebaseDataSource implements DataSource {
         return queryOptions;
     }
 }
-
-/**
- * A provider to inject the data source instance
- * of FirebaseDataSource or any other data source.
- */
-export const DataSourceProvider = new InjectionToken(
-    'DataSource provider for angular',
-    {
-        providedIn: 'root',
-        factory: () => new FirebaseDataSource(),
-    }
-);

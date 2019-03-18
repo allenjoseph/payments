@@ -1,7 +1,7 @@
 # NativeScript
-hooks/
 node_modules/
-platforms/
+payments-nativescript/hooks/
+payments-nativescript/platforms/
 
 # NativeScript Template
 *.js.map

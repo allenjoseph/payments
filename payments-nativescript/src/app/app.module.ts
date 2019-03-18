@@ -6,12 +6,13 @@ import localeES from '@angular/common/locales/es-PE';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './pages/login/login.module';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(localeES, 'es-PE');
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [NativeScriptModule, AppRoutingModule, LoginModule],
+    imports: [NativeScriptModule, CoreModule, AppRoutingModule, LoginModule],
     declarations: [AppComponent],
     providers: [{ provide: LOCALE_ID, useValue: 'es-PE' }],
     schemas: [NO_ERRORS_SCHEMA],

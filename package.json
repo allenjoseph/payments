@@ -3,5 +3,33 @@
   "version": "0.0.1",
   "description": "Payments Application",
   "author": "Allen Joseph",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "tsc": "tsc",
+    "compile": "npm run compile:domain; npm run compile:models; npm run compile:repository",
+    "compile:domain": "npm run tsc -- -p ./payments-domain",
+    "compile:models": "npm run tsc -- -p ./payments-models",
+    "compile:repository": "npm run tsc -- -p ./payments-repository",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "add": "^2.0.6",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
 }

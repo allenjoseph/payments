@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "@payments/models": "file:../payments-models",
+    "@payments/domain": "file:../payments-domain",
+    "@payments/repository": "file:../payments-repository",
     "moment": "^2.24.0",
     "nativescript-angular": "~7.1.0",
     "nativescript-plugin-firebase": "^7.6.0",
